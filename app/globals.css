@@ -1,26 +1,268 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================================================
+   BIG ROCK BUILDERS — Design System
+   Dark navy foundation · deep blue secondary · warm gold accent
+   ========================================================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* --- Surface: navy / near-black ------------------------------------- */
+  --color-ink-950: #04070e;
+  --color-ink-900: #070b14;
+  --color-ink-850: #0b1120;
+  --color-ink-800: #101828;
+  --color-ink-700: #182134;
+  --color-ink-600: #232e45;
+
+  /* --- Secondary: deep blue -------------------------------------------- */
+  --color-azure-900: #0c1f3d;
+  --color-azure-800: #12305c;
+  --color-azure-700: #17417d;
+  --color-azure-600: #1d559f;
+  --color-azure-500: #2e6fbf;
+  --color-azure-400: #5a93d6;
+
+  /* --- Primary accent: warm gold --------------------------------------- */
+  --color-gold-600: #a07c32;
+  --color-gold-500: #c39a4e;
+  --color-gold-400: #d8b673;
+  --color-gold-300: #e8d2a2;
+
+  /* --- Typography ------------------------------------------------------- */
+  --color-cream: #f4f5f7;
+  --color-mist-200: #d5dae3;
+  --color-mist-300: #a8b2c2;
+  --color-mist-400: #7c8799;
+  --color-mist-500: #5a6577;
+
+  /* --- Minimal borders --------------------------------------------------- */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+
+  /* --- Elevation ---------------------------------------------------------- */
+  --shadow-card:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+    0 24px 48px -32px rgba(0, 0, 0, 0.9);
+  --shadow-raised: 0 32px 64px -36px rgba(0, 0, 0, 0.95);
+
+  /* --- Motion (restrained) ------------------------------------------------ */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-cream font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-semibold text-cream;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-gold-500 text-ink-950;
+  }
+
+  :focus-visible {
+    @apply outline-gold-500 outline-2 outline-offset-2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+@layer components {
+  /* --- Layout: container + section rhythm -------------------------------- */
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .site-container-narrow {
+    @apply mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    padding-block: clamp(4.5rem, 9vw, 8rem);
+  }
+
+  .section-tight {
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  /* --- Typography hierarchy ---------------------------------------------- */
+  .eyebrow {
+    @apply text-gold-500 font-display text-xs font-semibold uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .display {
+    @apply font-display text-4xl leading-[1.05] font-semibold sm:text-5xl lg:text-6xl;
+    letter-spacing: -0.03em;
+  }
+
+  .heading-1 {
+    @apply font-display text-3xl leading-[1.1] font-semibold sm:text-4xl lg:text-5xl;
+  }
+
+  .heading-2 {
+    @apply font-display text-2xl leading-[1.15] font-semibold sm:text-3xl lg:text-4xl;
+  }
+
+  .heading-3 {
+    @apply font-display text-xl leading-[1.2] font-semibold sm:text-2xl;
+  }
+
+  .heading-4 {
+    @apply font-display text-base leading-snug font-semibold sm:text-lg;
+  }
+
+  .lead {
+    @apply text-mist-200 text-base leading-relaxed sm:text-lg;
+  }
+
+  .body-text {
+    @apply text-mist-300 text-[0.9375rem] leading-relaxed sm:text-base;
+  }
+
+  .body-muted {
+    @apply text-mist-400 text-sm leading-relaxed;
+  }
+
+  /* --- Buttons ------------------------------------------------------------ */
+  .btn {
+    @apply font-display inline-flex items-center justify-center gap-2 rounded-md border border-transparent px-6 py-3 text-[0.8125rem] font-semibold whitespace-nowrap uppercase select-none;
+    letter-spacing: 0.08em;
+    transition:
+      background-color 200ms var(--ease-out-soft),
+      border-color 200ms var(--ease-out-soft),
+      color 200ms var(--ease-out-soft);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    @apply pointer-events-none opacity-45;
+  }
+
+  .btn-primary {
+    @apply bg-gold-500 text-ink-950 hover:bg-gold-400;
+  }
+
+  .btn-secondary {
+    @apply bg-azure-700 hover:bg-azure-600 text-white;
+  }
+
+  .btn-outline {
+    @apply border-line-strong text-cream hover:border-gold-500 hover:text-gold-400 bg-transparent;
+  }
+
+  .btn-ghost {
+    @apply text-mist-300 hover:text-gold-400 bg-transparent px-2;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[0.6875rem];
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-sm;
+  }
+
+  /* --- Cards -------------------------------------------------------------- */
+  .card {
+    @apply border-line relative rounded-xl border p-6 sm:p-8;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.012)
+    );
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-interactive {
+    transition:
+      border-color 240ms var(--ease-out-soft),
+      background-color 240ms var(--ease-out-soft);
+  }
+
+  .card-interactive:hover {
+    @apply border-gold-500/35 bg-white/[0.02];
+  }
+
+  .card-flat {
+    @apply border-line bg-ink-900 rounded-xl border p-6 sm:p-8;
+  }
+
+  /* --- Surfaces & subtle gradients --------------------------------------- */
+  .surface-deep {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-ink-950),
+      var(--color-ink-900)
+    );
+  }
+
+  .surface-blue {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-azure-900) 0%,
+      var(--color-ink-900) 55%,
+      var(--color-ink-950) 100%
+    );
+  }
+
+  /* --- Rules & dividers ---------------------------------------------------- */
+  .hairline {
+    @apply border-line border-t;
+  }
+
+  .rule-gold {
+    @apply bg-gold-500 block h-px w-12;
+  }
+
+  /* --- Links ---------------------------------------------------------------- */
+  .link-gold {
+    @apply text-gold-500 hover:text-gold-400 underline-offset-4 transition-colors hover:underline;
+  }
+
+  .link-muted {
+    @apply text-mist-300 hover:text-cream transition-colors;
+  }
 }
