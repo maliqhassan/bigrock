@@ -9,6 +9,15 @@ export const site = {
   tagline: "Building Strength. Creating Landmarks.",
   foundedYear: 2016,
   country: "Pakistan",
+  /** WhatsApp number in international format, digits only, e.g. "923001234567".
+      The floating button stays hidden until this is filled in. */
+  whatsapp: "",
+  /** Public profiles. Each tile stays inert until its address is filled in. */
+  social: {
+    linkedin: "",
+    facebook: "",
+    instagram: "",
+  },
 } as const;
 
 export type NavItem = {

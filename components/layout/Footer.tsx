@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Logo from "@/components/layout/Logo";
 import FooterBuildings from "@/components/layout/FooterBuildings";
+import SocialLinks from "@/components/layout/SocialLinks";
 import { expertiseNav, mainNav, serviceNav, site } from "@/lib/site";
 import type { NavItem } from "@/lib/site";
 
@@ -49,6 +50,8 @@ export default function Footer() {
               electrical disciplines, backed by quality control, risk management
               and transparent client communication.
             </p>
+
+            <SocialLinks className="mt-8" />
           </div>
 
           {/* Navigation */}
