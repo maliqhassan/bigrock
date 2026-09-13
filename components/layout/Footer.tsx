@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Logo from "@/components/layout/Logo";
+import FooterBuildings from "@/components/layout/FooterBuildings";
 import { expertiseNav, mainNav, serviceNav, site } from "@/lib/site";
 import type { NavItem } from "@/lib/site";
 
@@ -29,18 +30,24 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-line bg-ink-950 mt-auto border-t">
-      <div className="site-container section-tight">
+    <footer className="bg-ink-950 relative mt-auto overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="via-line to-line h-px w-full bg-gradient-to-r from-azure-600/70"
+      />
+
+      <FooterBuildings />
+      <div className="site-container section-tight relative">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Brand */}
           <div className="lg:col-span-4">
-            <Logo />
+            <Logo size="lg" variant="plate" />
             <span className="rule-gold mt-7" aria-hidden="true" />
             <p className="eyebrow mt-7 block">{site.tagline}</p>
             <p className="body-muted mt-5 max-w-sm">
-              End-to-end project delivery across civil, mechanical and electrical
-              disciplines, backed by quality control, risk management and transparent
-              client communication.
+              End-to-end project delivery across civil, mechanical and
+              electrical disciplines, backed by quality control, risk management
+              and transparent client communication.
             </p>
           </div>
 
@@ -57,8 +64,8 @@ export default function Footer() {
             &copy; {year} {site.legalName}. All rights reserved.
           </p>
           <p className="body-muted">
-            Founded in {site.country} <span className="text-gold-500">&bull;</span>{" "}
-            {site.foundedYear}
+            Founded in {site.country}{" "}
+            <span className="text-gold-500">&bull;</span> {site.foundedYear}
           </p>
         </div>
       </div>

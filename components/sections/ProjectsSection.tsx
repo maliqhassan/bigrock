@@ -1,12 +1,13 @@
 import Image from "next/image";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 import ArrowLink from "@/components/ui/ArrowLink";
 
 type Project = {
   title: string;
   category: string;
-  description: string;
+  description?: string;
   image: string;
 };
 
@@ -27,18 +28,18 @@ const supportingProjects: Project[] = [
     image: "/images/project-rics.jpg",
   },
   {
-    title: "Soil Nailing & Excavation",
-    category: "Civil Engineering",
+    title: "Benazir Bhutto Hospital",
+    category: "Healthcare",
     description:
-      "Specialized excavation and soil stabilization work requiring technical planning and controlled execution.",
-    image: "/images/project-soil.jpg",
+      "A healthcare project delivered through coordinated execution, with quality control applied throughout.",
+    image: "/images/project-bbh.jpg",
   },
 ];
 
 /** Additional delivered projects, listed by name only. */
 const furtherProjects = [
   "FGEHF Water Supply Wells",
-  "Benazir Bhutto Hospital",
+  "Soil Nailing & Excavation",
   "Maryam Nawaz Health Clinic",
 ];
 
@@ -76,13 +77,17 @@ function ProjectTile({ project, featured = false, sizes }: ProjectTileProps) {
         }`}
       >
         <span className="eyebrow">{project.category}</span>
-        <h3 className={`${featured ? "heading-2" : "heading-4"} mt-3 text-white`}>
+        <h3
+          className={`${featured ? "heading-2" : "heading-4"} mt-3 text-white`}
+        >
           {project.title}
         </h3>
         <span className="rule-gold mt-5" aria-hidden="true" />
-        <p className={`${featured ? "body-text" : "body-muted"} mt-5 max-w-xl`}>
-          {project.description}
-        </p>
+        {project.description ? (
+          <p className={`${featured ? "body-text" : "body-muted"} mt-5 max-w-xl`}>
+            {project.description}
+          </p>
+        ) : null}
       </div>
     </article>
   );
@@ -91,7 +96,10 @@ function ProjectTile({ project, featured = false, sizes }: ProjectTileProps) {
 /** Homepage portfolio: one dominant featured project beside two supporting works. */
 export default function ProjectsSection() {
   return (
-    <section aria-labelledby="projects-heading" className="surface-deep section">
+    <section
+      aria-labelledby="projects-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Selected Projects"
@@ -100,16 +108,16 @@ export default function ProjectsSection() {
           description="From healthcare facilities and public infrastructure to complex excavation and water supply works, our projects reflect a commitment to disciplined execution and lasting quality."
         />
 
-        <ul className="mt-16 grid gap-6 lg:grid-cols-5">
-          <li className="lg:col-span-3">
+        <RevealList className="mt-16 grid gap-6 lg:grid-cols-5">
+          <RevealItem className="lg:col-span-3">
             <ProjectTile
               project={featuredProject}
               featured
               sizes="(min-width: 1024px) 58vw, 100vw"
             />
-          </li>
+          </RevealItem>
 
-          <li className="lg:col-span-2">
+          <RevealItem className="lg:col-span-2">
             <ul className="grid h-full gap-6 lg:grid-rows-2">
               {supportingProjects.map((project) => (
                 <li key={project.title} className="h-full">
@@ -120,8 +128,8 @@ export default function ProjectsSection() {
                 </li>
               ))}
             </ul>
-          </li>
-        </ul>
+          </RevealItem>
+        </RevealList>
 
         <div className="hairline mt-12 flex flex-col gap-6 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="body-muted">

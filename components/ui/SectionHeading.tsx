@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { RevealGroup, RevealBlock, WordReveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
 type HeadingLevel = "h1" | "h2" | "h3";
@@ -43,24 +44,44 @@ export default function SectionHeading({
   const isCentered = align === "center";
 
   return (
-    <div
+    <RevealGroup
+      stagger={0.12}
       className={cn(
         "flex flex-col",
         isCentered ? "items-center text-center" : "items-start text-left",
         className,
       )}
     >
-      {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+      {eyebrow ? (
+        <RevealBlock>
+          <span className="eyebrow">{eyebrow}</span>
+        </RevealBlock>
+      ) : null}
 
-      <Heading id={headingId} className={cn(levelClasses[as], eyebrow && "mt-4")}>{title}</Heading>
+      <Heading
+        id={headingId}
+        className={cn(levelClasses[as], eyebrow && "mt-4")}
+      >
+        {/* Plain-text titles animate word by word; composed titles rise as a
+            block, since they carry their own markup. */}
+        {typeof title === "string" ? <WordReveal text={title} /> : title}
+      </Heading>
 
-      {hideRule ? null : <span className="rule-gold mt-6" aria-hidden="true" />}
+      {hideRule ? null : (
+        <RevealBlock>
+          <span className="rule-gold mt-6" aria-hidden="true" />
+        </RevealBlock>
+      )}
 
       {description ? (
-        <p className={cn("lead mt-6", isCentered ? "max-w-2xl" : "max-w-3xl")}>
-          {description}
-        </p>
+        <RevealBlock>
+          <p
+            className={cn("lead mt-6", isCentered ? "max-w-2xl" : "max-w-3xl")}
+          >
+            {description}
+          </p>
+        </RevealBlock>
       ) : null}
-    </div>
+    </RevealGroup>
   );
 }

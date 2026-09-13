@@ -1,7 +1,13 @@
-import { HardHat, MessageSquareText, ShieldCheck, TriangleAlert } from "lucide-react";
+import {
+  HardHat,
+  MessageSquareText,
+  ShieldCheck,
+  TriangleAlert,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Commitment = {
   number: string;
@@ -27,7 +33,8 @@ const commitments: Commitment[] = [
   {
     number: "03",
     title: "Safety & Responsibility",
-    description: "A responsible approach to construction and project execution.",
+    description:
+      "A responsible approach to construction and project execution.",
     icon: HardHat,
   },
   {
@@ -67,7 +74,10 @@ function CommitmentPanel({ item }: { item: Commitment }) {
 /** The four quality commitments as large editorial panels. */
 export default function QualityStandardsSection() {
   return (
-    <section aria-labelledby="commitments-heading" className="surface-deep section">
+    <section
+      aria-labelledby="commitments-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Our Commitments"
@@ -76,13 +86,13 @@ export default function QualityStandardsSection() {
           description="These commitments shape how work is planned, executed and communicated on every project we take on."
         />
 
-        <ul className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
+        <RevealList className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
           {commitments.map((item) => (
-            <li key={item.number}>
+            <RevealItem key={item.number}>
               <CommitmentPanel item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

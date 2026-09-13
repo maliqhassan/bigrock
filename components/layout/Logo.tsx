@@ -1,44 +1,80 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 
-type LogoProps = {
-  className?: string;
-  /** Renders the wordmark without a surrounding link (e.g. inside the footer). */
-  asLink?: boolean;
+/**
+ * Supplied brand asset — a transparent PNG, used exactly as provided.
+ * On light surfaces it sits bare; on dark surfaces it is placed on a light
+ * plate so the navy wordmark stays legible. The artwork is never altered.
+ */
+const LOGO_SRC = "/images/logo.png";
+const LOGO_INTRINSIC = 960;
+
+type LogoSize = "sm" | "md" | "lg";
+
+const sizeClasses: Record<LogoSize, string> = {
+  sm: "h-10 w-10",
+  md: "h-12 w-12 sm:h-14 sm:w-14",
+  lg: "h-16 w-16 sm:h-20 sm:w-20",
 };
 
-function Wordmark() {
-  return (
-    <span className="flex items-center gap-3">
-      <svg
-        viewBox="0 0 24 24"
-        className="text-gold-500 h-7 w-7 shrink-0"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path d="M12 2 22 8v8l-10 6L2 16V8l10-6Z" stroke="currentColor" strokeWidth="1.25" />
-        <path d="M12 8.5 17 11.4v5.7L12 20l-5-2.9v-5.7L12 8.5Z" fill="currentColor" opacity="0.9" />
-      </svg>
-      <span className="font-display flex flex-col leading-none">
-        <span className="text-cream text-[0.95rem] font-bold tracking-[0.16em] uppercase">
-          Big Rock
-        </span>
-        <span className="text-mist-400 mt-1 text-[0.6rem] font-medium tracking-[0.34em] uppercase">
-          Builders
-        </span>
-      </span>
-    </span>
+type LogoProps = {
+  className?: string;
+  size?: LogoSize;
+  /** `plate` adds a light backing panel for dark surfaces such as the footer. */
+  variant?: "bare" | "plate";
+  /** Renders the mark without a surrounding link. */
+  asLink?: boolean;
+  /** Loads eagerly — set on the header instance. */
+  priority?: boolean;
+};
+
+function Mark({
+  size,
+  variant,
+  priority,
+}: {
+  size: LogoSize;
+  variant: "bare" | "plate";
+  priority?: boolean;
+}) {
+  const image = (
+    <Image
+      src={LOGO_SRC}
+      alt={`${site.name} logo`}
+      width={LOGO_INTRINSIC}
+      height={LOGO_INTRINSIC}
+      priority={priority}
+      sizes="112px"
+      className={cn("object-contain", sizeClasses[size])}
+    />
   );
+
+  if (variant === "plate") {
+    return (
+      <span className="inline-flex items-center justify-center rounded-lg bg-white p-2 ring-1 ring-white/15">
+        {image}
+      </span>
+    );
+  }
+
+  return image;
 }
 
-/** Brand wordmark shared by the header and footer. */
-export default function Logo({ className, asLink = true }: LogoProps) {
+/** Brand mark shared by the header and footer. */
+export default function Logo({
+  className,
+  size = "md",
+  variant = "bare",
+  asLink = true,
+  priority,
+}: LogoProps) {
   if (!asLink) {
     return (
       <span className={cn("inline-flex", className)}>
-        <Wordmark />
+        <Mark size={size} variant={variant} priority={priority} />
       </span>
     );
   }
@@ -47,9 +83,9 @@ export default function Logo({ className, asLink = true }: LogoProps) {
     <Link
       href="/"
       aria-label={`${site.name} — home`}
-      className={cn("inline-flex rounded-sm", className)}
+      className={cn("inline-flex rounded-md", className)}
     >
-      <Wordmark />
+      <Mark size={size} variant={variant} priority={priority} />
     </Link>
   );
 }

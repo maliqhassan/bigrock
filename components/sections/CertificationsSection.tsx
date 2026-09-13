@@ -1,7 +1,13 @@
-import { HardHat, MessageSquareText, ShieldCheck, TriangleAlert } from "lucide-react";
+import {
+  HardHat,
+  MessageSquareText,
+  ShieldCheck,
+  TriangleAlert,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Standard = {
   number: string;
@@ -66,7 +72,10 @@ function StandardColumn({ item }: { item: Standard }) {
  */
 export default function CertificationsSection() {
   return (
-    <section aria-labelledby="standards-heading" className="surface-deep section">
+    <section
+      aria-labelledby="standards-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Quality & Standards"
@@ -75,13 +84,16 @@ export default function CertificationsSection() {
           description="Our approach is grounded in disciplined project delivery, quality control, risk management and transparent communication — helping clients move from planning to completion with confidence."
         />
 
-        <ul className="divide-line border-line mt-16 grid divide-y border-t lg:grid-cols-4 lg:divide-x lg:divide-y-0 lg:border-t-0 lg:py-4">
+        <RevealList className="divide-line border-line mt-16 grid divide-y border-t lg:grid-cols-4 lg:divide-x lg:divide-y-0 lg:border-t-0 lg:py-4">
           {standards.map((item) => (
-            <li key={item.number} className="lg:first:pl-0 lg:last:pr-0">
+            <RevealItem
+              key={item.number}
+              className="lg:first:pl-0 lg:last:pr-0"
+            >
               <StandardColumn item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
 
         <div className="hairline mt-14 pt-8">
           <p className="font-display text-mist-300 text-sm font-medium sm:text-base">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Reveal, { RevealImage } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
 type Service = {
@@ -70,8 +71,12 @@ const blueprintStyle = {
 
 function ServiceVisual({ service }: { service: Service }) {
   return (
-    <div className="border-line bg-ink-900 relative aspect-[4/3] overflow-hidden rounded-xl border lg:aspect-[4/5]">
-      <div aria-hidden="true" className="absolute inset-0" style={blueprintStyle} />
+    <RevealImage className="border-line bg-ink-900 aspect-[4/3] rounded-xl border lg:aspect-[4/5]">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={blueprintStyle}
+      />
       <span
         aria-hidden="true"
         className="font-display absolute right-8 bottom-6 text-7xl font-semibold text-white/[0.05]"
@@ -93,11 +98,17 @@ function ServiceVisual({ service }: { service: Service }) {
         aria-hidden="true"
         className="from-ink-950/75 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
       />
-    </div>
+    </RevealImage>
   );
 }
 
-function ServiceBlock({ service, reverse }: { service: Service; reverse: boolean }) {
+function ServiceBlock({
+  service,
+  reverse,
+}: {
+  service: Service;
+  reverse: boolean;
+}) {
   const headingId = `${service.id}-heading`;
 
   return (
@@ -107,16 +118,17 @@ function ServiceBlock({ service, reverse }: { service: Service; reverse: boolean
       className="border-line scroll-mt-28 border-t py-16 first:border-t-0 first:pt-0 lg:py-24"
     >
       <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
-        <div
+        <Reveal
           className={cn(
             "lg:col-span-5",
             reverse ? "lg:order-2 lg:col-start-8" : "lg:order-1",
           )}
         >
           <ServiceVisual service={service} />
-        </div>
+        </Reveal>
 
-        <div
+        <Reveal
+          delay={0.12}
           className={cn(
             "lg:col-span-6",
             reverse ? "lg:order-1 lg:col-start-1" : "lg:order-2 lg:col-start-7",
@@ -146,12 +158,15 @@ function ServiceBlock({ service, reverse }: { service: Service; reverse: boolean
                 key={item}
                 className="border-line text-mist-200 flex items-center gap-4 border-t py-4 text-sm first:border-t-0 first:pt-0 sm:text-[0.9375rem]"
               >
-                <span className="bg-gold-500 h-px w-5 shrink-0" aria-hidden="true" />
+                <span
+                  className="bg-gold-500 h-px w-5 shrink-0"
+                  aria-hidden="true"
+                />
                 {item}
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

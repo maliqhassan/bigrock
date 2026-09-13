@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ContactForm from "@/components/sections/ContactForm";
+import Reveal from "@/components/ui/Reveal";
 import ContactInformationSection from "@/components/sections/ContactInformationSection";
 import ProjectEnquiryNoteSection from "@/components/sections/ProjectEnquiryNoteSection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
@@ -29,7 +30,10 @@ export default function ContactPage() {
         image={{ src: "/images/contact-hero.jpg" }}
       />
 
-      <section aria-labelledby="contact-intro-heading" className="bg-ink-950 section">
+      <section
+        aria-labelledby="contact-intro-heading"
+        className="bg-ink-950 section"
+      >
         <div className="site-container">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
             <div className="lg:col-span-5">
@@ -39,15 +43,15 @@ export default function ContactPage() {
                 title="Tell Us About Your Project."
               />
               <p className="body-text mt-8 max-w-md">
-                Whether you are planning a new build, infrastructure work, renovation
-                or a complex engineering requirement, our team is ready to understand
-                your needs and discuss the right approach.
+                Whether you are planning a new build, infrastructure work,
+                renovation or a complex engineering requirement, our team is
+                ready to understand your needs and discuss the right approach.
               </p>
             </div>
 
-            <div className="lg:col-span-6 lg:col-start-7">
+            <Reveal delay={0.12} className="lg:col-span-6 lg:col-start-7">
               <ContactForm />
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>

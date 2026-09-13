@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import MotionProvider from "@/components/ui/MotionProvider";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -34,17 +35,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="bg-ink-950 flex min-h-full flex-col">
+        {/* Motion renders its hidden initial state on the server, so reveal
+            everything if JavaScript never runs. */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <a
           href="#main-content"
           className="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60]"
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <Header />
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

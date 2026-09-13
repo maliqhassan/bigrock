@@ -10,7 +10,11 @@ type ArrowLinkProps = {
 };
 
 /** Small gold uppercase text link with a trailing arrow. */
-export default function ArrowLink({ href, children, className }: ArrowLinkProps) {
+export default function ArrowLink({
+  href,
+  children,
+  className,
+}: ArrowLinkProps) {
   return (
     <Link
       href={href}

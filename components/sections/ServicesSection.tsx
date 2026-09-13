@@ -2,6 +2,7 @@ import { Building2, ClipboardList, Hammer, Leaf } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 import ArrowLink from "@/components/ui/ArrowLink";
 
 type Service = {
@@ -46,21 +47,30 @@ function ServiceCard({ service }: { service: Service }) {
   const Icon = service.icon;
 
   return (
-    <article className="border-line bg-ink-900 hover:border-gold-500/30 hover:bg-ink-850 group relative flex h-full flex-col rounded-xl border p-7 transition-colors duration-300">
-      <div className="flex items-start justify-between gap-4">
-        <span className="border-line text-azure-400 group-hover:border-gold-500/40 group-hover:text-gold-500 inline-flex h-11 w-11 items-center justify-center rounded-lg border transition-colors duration-300">
-          <Icon className="h-5 w-5" aria-hidden="true" />
-        </span>
-        <span
-          aria-hidden="true"
-          className="font-display text-mist-500 group-hover:text-gold-500/70 text-2xl font-semibold transition-colors duration-300"
-        >
-          {service.number}
-        </span>
-      </div>
+    <article className="border-line bg-ink-900 hover:bg-ink-850 group relative flex h-full flex-col overflow-hidden rounded-xl border px-7 py-9 transition-colors duration-300 sm:px-8">
+      {/* Rule along the top edge, drawn in on hover */}
+      <span
+        aria-hidden="true"
+        className="bg-gold-500 absolute inset-x-0 top-0 h-px origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100"
+      />
+
+      {/* Reference numeral, set back behind the content */}
+      <span
+        aria-hidden="true"
+        className="font-display pointer-events-none absolute top-5 right-6 text-5xl leading-none font-semibold text-white/[0.05] transition-colors duration-500 group-hover:text-white/[0.08]"
+      >
+        {service.number}
+      </span>
+
+      <Icon
+        className="text-gold-500 h-6 w-6 shrink-0"
+        strokeWidth={1.5}
+        aria-hidden="true"
+      />
 
       <h3 className="heading-4 mt-8">{service.title}</h3>
-      <p className="body-muted mt-4">{service.description}</p>
+      <span className="bg-line mt-5 block h-px w-10" aria-hidden="true" />
+      <p className="body-muted mt-5">{service.description}</p>
     </article>
   );
 }
@@ -82,13 +92,13 @@ export default function ServicesSection() {
           description="From structural construction to integrated building services, Big Rock Builders brings technical expertise and disciplined project delivery together under one roof."
         />
 
-        <ul className="mt-16 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <RevealList className="mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {services.map((service) => (
-            <li key={service.number}>
+            <RevealItem key={service.number}>
               <ServiceCard service={service} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
 
         <div className="mt-12">
           <ArrowLink href="/services">View All Services</ArrowLink>

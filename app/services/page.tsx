@@ -20,7 +20,9 @@ export default function ServicesPage() {
         title={
           <>
             Built for Complexity.
-            <span className="text-gold-500 block">Engineered for Excellence.</span>
+            <span className="text-gold-500 block">
+              Engineered for Excellence.
+            </span>
           </>
         }
         description="From civil and structural construction to project management, renovations and sustainable building, we provide integrated solutions for demanding projects."

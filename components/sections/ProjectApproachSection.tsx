@@ -1,4 +1,5 @@
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Principle = {
   number: string;
@@ -15,19 +16,24 @@ const principles: Principle[] = [
   {
     number: "02",
     title: "Build with Discipline",
-    description: "Attention to quality, risk management and responsible delivery.",
+    description:
+      "Attention to quality, risk management and responsible delivery.",
   },
   {
     number: "03",
     title: "Deliver with Confidence",
-    description: "Transparent communication and a focus on client satisfaction.",
+    description:
+      "Transparent communication and a focus on client satisfaction.",
   },
 ];
 
 /** How projects are approached, stated without metrics. */
 export default function ProjectApproachSection() {
   return (
-    <section aria-labelledby="approach-heading" className="surface-deep section">
+    <section
+      aria-labelledby="approach-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Our Approach"
@@ -35,9 +41,12 @@ export default function ProjectApproachSection() {
           title="Disciplined Delivery. Lasting Results."
         />
 
-        <ul className="divide-line border-line mt-16 grid divide-y border-y lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+        <RevealList className="divide-line border-line mt-16 grid divide-y border-y lg:grid-cols-3 lg:divide-x lg:divide-y-0">
           {principles.map((item) => (
-            <li key={item.number} className="lg:first:pl-0 lg:last:pr-0">
+            <RevealItem
+              key={item.number}
+              className="lg:first:pl-0 lg:last:pr-0"
+            >
               <article className="group h-full py-10 lg:px-10 lg:py-12">
                 <span
                   aria-hidden="true"
@@ -49,9 +58,9 @@ export default function ProjectApproachSection() {
                 <h3 className="heading-4 mt-7">{item.title}</h3>
                 <p className="body-muted mt-4 max-w-sm">{item.description}</p>
               </article>
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

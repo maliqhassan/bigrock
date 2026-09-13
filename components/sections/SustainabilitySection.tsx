@@ -3,6 +3,8 @@ import { Landmark, Leaf, Recycle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealImage } from "@/components/ui/Reveal";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 import ArrowLink from "@/components/ui/ArrowLink";
 
 type Principle = {
@@ -64,7 +66,7 @@ export default function SustainabilitySection() {
   return (
     <section
       aria-labelledby="sustainability-heading"
-      className="surface-blue section"
+      className="bg-ink-950 section"
     >
       <div className="site-container">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
@@ -77,7 +79,7 @@ export default function SustainabilitySection() {
               description="We believe responsible construction should consider the long-term impact of the spaces and infrastructure we create."
             />
 
-            <div className="border-line bg-ink-900 relative mt-12 aspect-[3/2] overflow-hidden rounded-xl border">
+            <RevealImage className="border-line bg-ink-900 mt-12 aspect-[3/2] rounded-xl border">
               <Image
                 src="/images/sustainability.jpg"
                 alt=""
@@ -87,20 +89,20 @@ export default function SustainabilitySection() {
               />
               <div
                 aria-hidden="true"
-                className="from-ink-950 via-azure-900/35 absolute inset-0 bg-gradient-to-t to-transparent"
+                className="from-ink-950 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
               />
-            </div>
+            </RevealImage>
           </div>
 
           {/* Principles */}
           <div className="lg:col-span-7">
-            <ul className="flex flex-col">
+            <RevealList className="flex flex-col">
               {principles.map((item) => (
-                <li key={item.number}>
+                <RevealItem key={item.number}>
                   <PrincipleRow item={item} />
-                </li>
+                </RevealItem>
               ))}
-            </ul>
+            </RevealList>
 
             <div className="hairline mt-10 pt-8">
               <ArrowLink href="/sustainability">Explore Our Approach</ArrowLink>

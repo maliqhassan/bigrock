@@ -2,6 +2,7 @@ import { Landmark, Leaf, Recycle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Principle = {
   number: string;
@@ -62,7 +63,10 @@ function PrinciplePanel({ item }: { item: Principle }) {
 /** The three sustainability principles as editorial panels. */
 export default function SustainabilityPrinciplesSection() {
   return (
-    <section aria-labelledby="principles-heading" className="surface-deep section">
+    <section
+      aria-labelledby="principles-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Our Principles"
@@ -70,13 +74,13 @@ export default function SustainabilityPrinciplesSection() {
           title="Three Commitments That Shape How We Build."
         />
 
-        <ul className="bg-line border-line mt-16 grid gap-px border-y lg:grid-cols-3">
+        <RevealList className="bg-line border-line mt-16 grid gap-px border-y lg:grid-cols-3">
           {principles.map((item) => (
-            <li key={item.number}>
+            <RevealItem key={item.number}>
               <PrinciplePanel item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

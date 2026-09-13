@@ -2,6 +2,7 @@ import { Building2, Cog, Layers3, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Expertise = {
   number: string;
@@ -83,21 +84,27 @@ export default function ExpertiseSection() {
           description="Our multidisciplinary capability allows us to approach complex projects with coordinated civil, mechanical and electrical expertise — supporting efficient delivery from planning through completion."
         />
 
-        <ul className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
+        <RevealList className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
           {expertise.map((item) => (
-            <li key={item.number}>
+            <RevealItem key={item.number}>
               <ExpertisePanel item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
 
         <div className="mt-14 flex items-center gap-6">
-          <span className="hairline hidden flex-1 sm:block" aria-hidden="true" />
+          <span
+            className="hairline hidden flex-1 sm:block"
+            aria-hidden="true"
+          />
           <p className="font-display text-mist-300 text-center text-xs font-semibold tracking-[0.18em] uppercase sm:text-[0.8125rem]">
             One team. Multiple disciplines.{" "}
             <span className="text-gold-500">End-to-end capability.</span>
           </p>
-          <span className="hairline hidden flex-1 sm:block" aria-hidden="true" />
+          <span
+            className="hairline hidden flex-1 sm:block"
+            aria-hidden="true"
+          />
         </div>
       </div>
     </section>

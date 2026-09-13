@@ -1,11 +1,12 @@
 import SectionHeading from "@/components/ui/SectionHeading";
+import Reveal from "@/components/ui/Reveal";
 
 /** Restrained band linking quality to the company's people and capability. */
 export default function QualityCapabilitySection() {
   return (
     <section
       aria-labelledby="discipline-heading"
-      className="surface-blue section-tight"
+      className="bg-ink-950 section-tight"
     >
       <div className="site-container">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
@@ -18,11 +19,13 @@ export default function QualityCapabilitySection() {
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
-            <p className="body-text lg:mt-16">
-              With 150+ engineers, supervisors and certified tradespeople, Big Rock
-              Builders brings together the people and multidisciplinary capability
-              needed to support end-to-end project delivery.
-            </p>
+            <Reveal>
+              <p className="body-text lg:mt-16">
+                With 150+ engineers, supervisors and certified tradespeople, Big
+                Rock Builders brings together the people and multidisciplinary
+                capability needed to support end-to-end project delivery.
+              </p>
+            </Reveal>
           </div>
         </div>
       </div>

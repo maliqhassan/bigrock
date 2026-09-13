@@ -2,7 +2,8 @@
 
 /* ==========================================================================
    BIG ROCK BUILDERS — Design System
-   Dark navy foundation · deep blue secondary · warm gold accent
+   Derived from the Big Rock Builders logo:
+   royal blue + deep brand blue, midnight navy foundation, gold accent
    ========================================================================== */
 
 @theme inline {
@@ -11,38 +12,44 @@
 }
 
 @theme {
-  /* --- Surface: navy / near-black ------------------------------------- */
-  --color-ink-950: #04070e;
-  --color-ink-900: #070b14;
-  --color-ink-850: #0b1120;
-  --color-ink-800: #101828;
-  --color-ink-700: #182134;
-  --color-ink-600: #232e45;
+  /* --- Structural foundation: navy (logo gradient base) ---------------- */
+  --color-ink-950: #071225;
+  --color-ink-900: #0b1833;
+  --color-ink-850: #0e1f40;
+  --color-ink-800: #12264e;
+  --color-ink-700: #17305f;
+  --color-ink-600: #1f3c73;
 
-  /* --- Secondary: deep blue -------------------------------------------- */
-  --color-azure-900: #0c1f3d;
-  --color-azure-800: #12305c;
-  --color-azure-700: #17417d;
-  --color-azure-600: #1d559f;
-  --color-azure-500: #2e6fbf;
-  --color-azure-400: #5a93d6;
+  /* --- Brand blue: taken from the Big Rock Builders logo --------------- */
+  --color-azure-900: #0c1f66;
+  --color-azure-800: #102a8a;
+  --color-azure-700: #1634a8;
+  --color-azure-600: #1e40d8;
+  --color-azure-500: #3d5ce6;
+  --color-azure-400: #7c97f7;
 
-  /* --- Primary accent: warm gold --------------------------------------- */
-  --color-gold-600: #a07c32;
-  --color-gold-500: #c39a4e;
-  --color-gold-400: #d8b673;
-  --color-gold-300: #e8d2a2;
+  /* --- Premium accent: brand gold --------------------------------------- */
+  /* gold-* adapts per surface (deepened on light bands for contrast). */
+  --color-gold-600: #c29b00;
+  --color-gold-500: #efbf04;
+  --color-gold-400: #f7d451;
+  --color-gold-300: #fae695;
+  /* Fixed brand gold for filled elements, which read on any surface. */
+  --color-gold-fill: #efbf04;
+  --color-gold-fill-hover: #f7d451;
 
   /* --- Typography ------------------------------------------------------- */
-  --color-cream: #f4f5f7;
-  --color-mist-200: #d5dae3;
-  --color-mist-300: #a8b2c2;
-  --color-mist-400: #7c8799;
-  --color-mist-500: #5a6577;
+  --color-cream: #f5f7fa;
+  --color-soft: #eaf0ff;
+  --color-navy-ink: #0b1833;
+  --color-mist-200: #d5def0;
+  --color-mist-300: #a9b7d4;
+  --color-mist-400: #7f8fb2;
+  --color-mist-500: #5c6b8e;
 
   /* --- Minimal borders --------------------------------------------------- */
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
 
   /* --- Elevation ---------------------------------------------------------- */
   --shadow-card:
@@ -186,7 +193,20 @@
   }
 
   .btn-secondary {
-    @apply bg-azure-700 hover:bg-azure-600 text-white;
+    @apply bg-azure-600 hover:bg-azure-500 text-white;
+  }
+
+  /* Brand gold fill — keeps its colour on dark and light surfaces alike,
+     so blue and gold can sit together in the same bar. */
+  .btn-gold,
+  .surface-light .btn-gold {
+    background-color: var(--color-gold-fill);
+    color: var(--color-navy-ink);
+  }
+
+  .btn-gold:hover,
+  .surface-light .btn-gold:hover {
+    background-color: var(--color-gold-fill-hover);
   }
 
   .btn-outline {
@@ -230,22 +250,54 @@
     @apply border-line bg-ink-900 rounded-xl border p-6 sm:p-8;
   }
 
-  /* --- Surfaces & subtle gradients --------------------------------------- */
-  .surface-deep {
-    background-image: linear-gradient(
-      to bottom,
-      var(--color-ink-950),
-      var(--color-ink-900)
-    );
+  /* --- Surfaces ----------------------------------------------------------- */
+  /*
+   * Light architectural band. Re-points the palette tokens inside its own
+   * subtree, so every existing utility (bg-ink-*, text-cream, border-line,
+   * text-gold-*) resolves to its light-surface equivalent with no per-component
+   * colour overrides. Gold is deepened here to stay readable on off-white.
+   */
+  .surface-light {
+    background-image: linear-gradient(to bottom, #ffffff 0%, #eaf0ff 100%);
+    color: var(--color-navy-ink);
+
+    --color-ink-950: #ffffff;
+    --color-ink-900: #eaf0ff;
+    --color-ink-850: #f5f7fa;
+    --color-cream: #0b1833;
+    --color-mist-200: #17233f;
+    --color-mist-300: #3c4c6e;
+    --color-mist-400: #55658a;
+    --color-mist-500: #6e7da0;
+    --color-line: rgba(11, 24, 51, 0.14);
+    --color-line-strong: rgba(11, 24, 51, 0.26);
+    --color-gold-500: #7a6000;
+    --color-gold-400: #665000;
+    --color-azure-400: #1e40d8;
   }
 
-  .surface-blue {
-    background-image: linear-gradient(
-      135deg,
-      var(--color-azure-900) 0%,
-      var(--color-ink-900) 55%,
-      var(--color-ink-950) 100%
-    );
+  /* Deep brand blue carries the primary action on light surfaces. */
+  .surface-light .btn-primary {
+    background-color: #102a8a;
+    color: #ffffff;
+  }
+
+  .surface-light .btn-primary:hover {
+    background-color: #1e40d8;
+  }
+
+  .surface-light .btn-outline {
+    border-color: rgba(11, 24, 51, 0.26);
+    color: #0b1833;
+  }
+
+  .surface-light .btn-outline:hover {
+    border-color: #102a8a;
+    color: #102a8a;
+  }
+
+  .surface-light :focus-visible {
+    outline-color: #102a8a;
   }
 
   /* --- Rules & dividers ---------------------------------------------------- */

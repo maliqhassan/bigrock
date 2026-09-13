@@ -22,7 +22,9 @@ export default function QualityStandardsPage() {
         title={
           <>
             Committed to Quality.
-            <span className="text-gold-500 block">Built on Accountability.</span>
+            <span className="text-gold-500 block">
+              Built on Accountability.
+            </span>
           </>
         }
         description="Our approach is grounded in disciplined project delivery, quality control, risk management and transparent communication — helping clients move from planning to completion with confidence."

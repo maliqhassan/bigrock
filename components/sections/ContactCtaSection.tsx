@@ -3,24 +3,6 @@ import type { ReactNode } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 
-/** CSS-only architectural grid: fine ruled lines with a faint gold wash. */
-const blueprintStyle = {
-  backgroundImage: [
-    "linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px)",
-    "linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
-  ].join(", "),
-  backgroundSize: "96px 100%, 100% 96px",
-  maskImage:
-    "radial-gradient(70% 70% at 50% 50%, rgba(0, 0, 0, 1), transparent 100%)",
-  WebkitMaskImage:
-    "radial-gradient(70% 70% at 50% 50%, rgba(0, 0, 0, 1), transparent 100%)",
-} as const;
-
-const glowStyle = {
-  backgroundImage:
-    "radial-gradient(60% 55% at 50% 0%, rgba(195, 154, 78, 0.09), transparent 70%)",
-} as const;
-
 type CtaLink = {
   label: string;
   href: string;
@@ -47,14 +29,8 @@ export default function ContactCtaSection({
   headingId = "contact-cta-heading",
 }: ContactCtaSectionProps) {
   return (
-    <section
-      aria-labelledby={headingId}
-      className="bg-ink-950 border-line section relative overflow-hidden border-t"
-    >
-      <div aria-hidden="true" className="absolute inset-0" style={blueprintStyle} />
-      <div aria-hidden="true" className="absolute inset-0" style={glowStyle} />
-
-      <div className="site-container relative">
+    <section aria-labelledby={headingId} className="bg-ink-950 section">
+      <div className="site-container">
         <div className="mx-auto flex max-w-3xl flex-col items-center">
           <SectionHeading
             eyebrow={eyebrow ?? undefined}

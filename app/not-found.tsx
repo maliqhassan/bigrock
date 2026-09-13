@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <section
       aria-labelledby="not-found-heading"
-      className="surface-blue relative -mt-20 flex min-h-[70svh] flex-col justify-center pt-20"
+      className="bg-ink-950 relative isolate flex min-h-[70svh] flex-col justify-center pt-28"
     >
       <div className="site-container py-20 sm:py-24">
         <div className="max-w-2xl">
@@ -22,7 +22,8 @@ export default function NotFound() {
           </h1>
           <span className="rule-gold mt-8 w-16" aria-hidden="true" />
           <p className="lead mt-8">
-            The page you&rsquo;re looking for may have moved or no longer exists.
+            The page you&rsquo;re looking for may have moved or no longer
+            exists.
           </p>
 
           <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">

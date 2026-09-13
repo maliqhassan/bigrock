@@ -2,6 +2,7 @@ import { Cog, Handshake, ShieldCheck, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Principle = {
   number: string;
@@ -21,7 +22,8 @@ const principles: Principle[] = [
   {
     number: "02",
     title: "End-to-End Delivery",
-    description: "A coordinated approach from planning through project completion.",
+    description:
+      "A coordinated approach from planning through project completion.",
     icon: Workflow,
   },
   {
@@ -34,7 +36,8 @@ const principles: Principle[] = [
   {
     number: "04",
     title: "Client Partnership",
-    description: "Transparent communication and a focus on client satisfaction.",
+    description:
+      "Transparent communication and a focus on client satisfaction.",
     icon: Handshake,
   },
 ];
@@ -68,7 +71,7 @@ export default function DifferentiatorsSection() {
   return (
     <section
       aria-labelledby="differentiators-heading"
-      className="surface-deep section"
+      className="bg-ink-950 section"
     >
       <div className="site-container">
         <SectionHeading
@@ -78,13 +81,13 @@ export default function DifferentiatorsSection() {
           description="Every project draws on the same foundation: technical depth, coordinated delivery, disciplined quality control and an open working relationship with our clients."
         />
 
-        <ul className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
+        <RevealList className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
           {principles.map((item) => (
-            <li key={item.number}>
+            <RevealItem key={item.number}>
               <PrinciplePanel item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

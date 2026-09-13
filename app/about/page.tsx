@@ -21,7 +21,9 @@ export default function AboutPage() {
         title={
           <>
             Building with Purpose.
-            <span className="text-gold-500 block">Delivering with Confidence.</span>
+            <span className="text-gold-500 block">
+              Delivering with Confidence.
+            </span>
           </>
         }
         description="Founded in Pakistan in 2016, Big Rock Builders (Pvt Ltd) delivers construction and engineering solutions with a focus on quality, disciplined execution and client satisfaction."

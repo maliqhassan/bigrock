@@ -1,4 +1,5 @@
 import SectionHeading from "@/components/ui/SectionHeading";
+import Reveal from "@/components/ui/Reveal";
 
 /**
  * Restrained statement about the team. Deliberately carries no names,
@@ -18,7 +19,10 @@ export default function TeamCapabilitySection() {
             />
           </div>
 
-          <div className="border-line lg:col-span-4 lg:col-start-9 lg:border-l lg:pl-12">
+          <Reveal
+            delay={0.12}
+            className="border-line lg:col-span-4 lg:col-start-9 lg:border-l lg:pl-12"
+          >
             <p className="font-display text-gold-500 text-6xl leading-none font-semibold">
               150+
             </p>
@@ -26,7 +30,7 @@ export default function TeamCapabilitySection() {
               Engineers, supervisors and certified tradespeople across civil,
               mechanical and electrical disciplines.
             </p>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

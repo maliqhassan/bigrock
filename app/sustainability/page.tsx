@@ -22,7 +22,9 @@ export default function SustainabilityPage() {
         title={
           <>
             Building for Today.
-            <span className="text-gold-500 block">Thinking Beyond Tomorrow.</span>
+            <span className="text-gold-500 block">
+              Thinking Beyond Tomorrow.
+            </span>
           </>
         }
         description="We believe responsible construction should consider the long-term impact of the spaces and infrastructure we create."

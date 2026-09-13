@@ -3,12 +3,14 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ButtonVariant =
+  "primary" | "secondary" | "gold" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: "btn-primary",
   secondary: "btn-secondary",
+  gold: "btn-gold",
   outline: "btn-outline",
   ghost: "btn-ghost",
 };
@@ -49,7 +51,12 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const classes = cn("btn", variantClasses[variant], sizeClasses[size], className);
+  const classes = cn(
+    "btn",
+    variantClasses[variant],
+    sizeClasses[size],
+    className,
+  );
 
   if (typeof props.href === "string") {
     const { href, ...anchorProps } = props as ButtonAsLink;

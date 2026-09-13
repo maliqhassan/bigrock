@@ -2,18 +2,19 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 import Button from "@/components/ui/Button";
+import { Entrance, RevealBlock, WordReveal } from "@/components/ui/Reveal";
+import HeroStructure from "@/components/sections/HeroStructure";
 import { site } from "@/lib/site";
 
 /**
- * Full-height homepage hero. The header sits over this section, so the top
- * padding reserves its height while the negative margin pulls the artwork
- * behind it.
+ * Full-height homepage hero. The floating header bar sits over this section,
+ * so the top padding keeps the headline clear of it.
  */
 export default function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="bg-ink-950 relative -mt-20 flex min-h-[100svh] flex-col justify-center overflow-hidden pt-20"
+      className="bg-ink-950 relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28"
     >
       {/* Architectural photography */}
       <div className="absolute inset-0 -z-20">
@@ -27,15 +28,21 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Navy readability overlays: vertical on mobile, horizontal on desktop */}
+      {/* Even navy scrim, holding overall legibility. */}
       <div
         aria-hidden="true"
-        className="from-ink-950 via-ink-950/85 to-ink-950/35 absolute inset-0 -z-10 bg-gradient-to-b lg:bg-gradient-to-r lg:via-ink-950/80 lg:to-transparent"
+        className="bg-ink-950/45 absolute inset-0 -z-10"
       />
+
+      {/* Midnight navy side gradient: anchors the headline on the left and
+          fades out across the image. Runs bottom-up on narrow screens. */}
       <div
         aria-hidden="true"
-        className="from-ink-950 absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t to-transparent"
+        className="from-ink-950 via-ink-950/45 sm:via-ink-950/30 absolute inset-0 -z-10 bg-gradient-to-t to-transparent sm:bg-gradient-to-r"
       />
+
+      {/* Construction frame ornament */}
+      <HeroStructure />
 
       {/* Gold edge detail */}
       <div
@@ -44,23 +51,33 @@ export default function HeroSection() {
       />
 
       <div className="site-container relative w-full py-20 sm:py-24">
-        <div className="max-w-3xl">
-          <p className="eyebrow">{site.tagline}</p>
+        <Entrance className="max-w-3xl">
+          <RevealBlock>
+            <p className="eyebrow">{site.tagline}</p>
+          </RevealBlock>
 
-          <h1 id="hero-heading" className="display mt-6">
-            Built on Strength.
-            <span className="text-gold-500 block">Delivered with Trust.</span>
-          </h1>
+          <RevealBlock>
+            <h1 id="hero-heading" className="display mt-6">
+              <WordReveal text="Built on Strength." />
+              <span className="text-gold-500 block">
+                <WordReveal text="Delivered with Trust." delay={0.18} />
+              </span>
+            </h1>
+          </RevealBlock>
 
-          <span className="rule-gold mt-8 w-16" aria-hidden="true" />
+          <RevealBlock>
+            <span className="rule-gold mt-8 w-16" aria-hidden="true" />
+          </RevealBlock>
 
-          <p className="lead mt-8 max-w-2xl">
-            At {site.legalName}, we turn visions into reality with unwavering
-            commitment to quality, integrity and innovation. We build more than
-            structures &mdash; we build trust.
-          </p>
+          <RevealBlock>
+            <p className="lead mt-8 max-w-2xl">
+              At {site.legalName}, we turn visions into reality with unwavering
+              commitment to quality, integrity and innovation. We build more
+              than structures &mdash; we build trust.
+            </p>
+          </RevealBlock>
 
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <RevealBlock className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button href="/projects" size="lg">
               Explore Our Projects
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -68,8 +85,8 @@ export default function HeroSection() {
             <Button href="/contact" variant="outline" size="lg">
               Talk to Our Team
             </Button>
-          </div>
-        </div>
+          </RevealBlock>
+        </Entrance>
       </div>
     </section>
   );

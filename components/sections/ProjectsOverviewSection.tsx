@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
 type Project = {
@@ -66,7 +67,12 @@ type ProjectTileProps = {
   featured?: boolean;
 };
 
-function ProjectTile({ project, sizes, aspect, featured = false }: ProjectTileProps) {
+function ProjectTile({
+  project,
+  sizes,
+  aspect,
+  featured = false,
+}: ProjectTileProps) {
   return (
     <article
       className={cn(
@@ -105,7 +111,12 @@ function ProjectTile({ project, sizes, aspect, featured = false }: ProjectTilePr
         )}
       >
         <span className="eyebrow">{project.category}</span>
-        <h3 className={cn(featured ? "heading-2" : "heading-3", "mt-3 text-white")}>
+        <h3
+          className={cn(
+            featured ? "heading-2" : "heading-3",
+            "mt-3 text-white",
+          )}
+        >
           {project.title}
         </h3>
         <span className="rule-gold mt-5" aria-hidden="true" />
@@ -126,21 +137,24 @@ export default function ProjectsOverviewSection() {
           description="Each project below has been delivered by Big Rock Builders across construction, civil engineering, water infrastructure and healthcare environments."
         />
 
-        <ul className="mt-16 grid gap-6 sm:grid-cols-2">
-          <li className="sm:col-span-2">
+        <RevealList className="mt-16 grid gap-6 sm:grid-cols-2">
+          <RevealItem className="sm:col-span-2">
             <ProjectTile
               project={featuredProject}
               featured
               sizes="(min-width: 640px) 90vw, 100vw"
               aspect="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]"
             />
-          </li>
+          </RevealItem>
 
           {projects.map((project, index) => {
             const isWide = index === projects.length - 1;
 
             return (
-              <li key={project.number} className={cn(isWide && "sm:col-span-2")}>
+              <RevealItem
+                key={project.number}
+                className={cn(isWide && "sm:col-span-2")}
+              >
                 <ProjectTile
                   project={project}
                   sizes={
@@ -154,10 +168,10 @@ export default function ProjectsOverviewSection() {
                       : "aspect-[4/3] lg:aspect-[5/4]"
                   }
                 />
-              </li>
+              </RevealItem>
             );
           })}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

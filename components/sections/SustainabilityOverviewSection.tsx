@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealImage } from "@/components/ui/Reveal";
 
 /** Architectural ruled plate shown beneath the photograph. */
 const plateStyle = {
@@ -26,21 +27,21 @@ export default function SustainabilityOverviewSection() {
 
             <div className="mt-10 flex flex-col gap-6">
               <p className="body-text max-w-xl">
-                We believe responsible construction should consider more than the
-                immediate requirements of a project. Our approach considers
-                efficiency, responsible resource use and the long-term value of the
-                spaces and infrastructure we help create.
+                We believe responsible construction should consider more than
+                the immediate requirements of a project. Our approach considers
+                efficiency, responsible resource use and the long-term value of
+                the spaces and infrastructure we help create.
               </p>
               <p className="body-text max-w-xl">
-                Through thoughtful project execution and disciplined delivery, we aim
-                to create durable solutions that serve people and communities over
-                time.
+                Through thoughtful project execution and disciplined delivery,
+                we aim to create durable solutions that serve people and
+                communities over time.
               </p>
             </div>
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
-            <div className="border-line bg-ink-900 relative aspect-[4/3] overflow-hidden rounded-lg border lg:aspect-[4/5]">
+            <RevealImage className="border-line bg-ink-900 aspect-[4/3] rounded-lg border lg:aspect-[4/5]">
               <div
                 aria-hidden="true"
                 className="absolute inset-0"
@@ -55,9 +56,9 @@ export default function SustainabilityOverviewSection() {
               />
               <div
                 aria-hidden="true"
-                className="from-ink-950 via-azure-900/30 absolute inset-0 bg-gradient-to-t to-transparent"
+                className="from-ink-950 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
               />
-            </div>
+            </RevealImage>
           </div>
         </div>
       </div>

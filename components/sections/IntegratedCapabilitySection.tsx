@@ -2,6 +2,7 @@ import { Building2, Cog, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Capability = {
   title: string;
@@ -19,7 +20,7 @@ export default function IntegratedCapabilitySection() {
   return (
     <section
       aria-labelledby="integrated-heading"
-      className="surface-blue section"
+      className="bg-ink-950 section"
     >
       <div className="site-container">
         <SectionHeading
@@ -29,18 +30,21 @@ export default function IntegratedCapabilitySection() {
           description="Our civil, mechanical and electrical capabilities allow us to approach projects as coordinated systems rather than isolated disciplines."
         />
 
-        <ul className="divide-line border-line mt-16 grid divide-y border-t sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-b">
+        <RevealList className="divide-line border-line mt-16 grid divide-y border-t sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-b">
           {capabilities.map(({ title, icon: Icon }) => (
-            <li key={title} className="sm:first:pl-0 sm:last:pr-0">
+            <RevealItem key={title} className="sm:first:pl-0 sm:last:pr-0">
               <div className="flex items-center gap-4 py-8 sm:px-8 lg:px-10">
-                <Icon className="text-gold-500 h-5 w-5 shrink-0" aria-hidden="true" />
+                <Icon
+                  className="text-gold-500 h-5 w-5 shrink-0"
+                  aria-hidden="true"
+                />
                 <h3 className="font-display text-cream text-base font-semibold tracking-[0.06em] uppercase">
                   {title}
                 </h3>
               </div>
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

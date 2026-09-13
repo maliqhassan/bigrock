@@ -2,6 +2,7 @@ import { Building2, Cog, Layers3, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import { RevealList, RevealItem } from "@/components/ui/Reveal";
 
 type Discipline = {
   id: string;
@@ -77,7 +78,10 @@ function DisciplinePanel({ item }: { item: Discipline }) {
 /** The four engineering disciplines as large editorial panels. */
 export default function ExpertiseOverviewSection() {
   return (
-    <section aria-labelledby="disciplines-heading" className="bg-ink-950 section">
+    <section
+      aria-labelledby="disciplines-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Disciplines"
@@ -86,13 +90,13 @@ export default function ExpertiseOverviewSection() {
           description="Civil, mechanical, electrical and integrated services capability sits within one organisation, supporting coordinated end-to-end project delivery."
         />
 
-        <ul className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
+        <RevealList className="bg-line border-line mt-16 grid gap-px border-y sm:grid-cols-2">
           {disciplines.map((item) => (
-            <li key={item.id}>
+            <RevealItem key={item.id}>
               <DisciplinePanel item={item} />
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealList>
       </div>
     </section>
   );

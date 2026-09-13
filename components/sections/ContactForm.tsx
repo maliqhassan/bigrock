@@ -18,7 +18,7 @@ type Fields = {
 
 type Errors = Partial<Record<keyof Fields, string>>;
 
-type Status = "idle" | "submitting" | "success";
+type Status = "idle" | "submitting" | "sent" | "prepared" | "error";
 
 const emptyFields: Fields = {
   name: "",
@@ -138,9 +138,9 @@ function Field({
 }
 
 /**
- * Front-end only enquiry form. Validation and UI state are complete; the
- * submit handler is the single place to connect a real API route or email
- * provider later — nothing is transmitted today.
+ * Enquiry form. Posts to /api/enquiries, which delivers by email once the
+ * destination address and API key are configured; until then the route says
+ * so and the form reports honestly that nothing was sent.
  */
 export default function ContactForm() {
   const formId = useId();
@@ -152,7 +152,9 @@ export default function ContactForm() {
   const errorId = (name: keyof Fields) => `${formId}-${name}-error`;
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = event.target;
 
@@ -179,11 +181,33 @@ export default function ContactForm() {
 
     setStatus("submitting");
 
-    // Connect delivery here, e.g.
-    // await fetch("/api/enquiries", { method: "POST", body: JSON.stringify(fields) });
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    try {
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
 
-    setStatus("success");
+      const result = (await response.json()) as {
+        delivered?: boolean;
+        reason?: string;
+      };
+
+      if (result.delivered) {
+        setStatus("sent");
+        return;
+      }
+
+      // The route reports this until the destination address and key are set.
+      if (result.reason === "not-configured") {
+        setStatus("prepared");
+        return;
+      }
+
+      setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const reset = () => {
@@ -192,31 +216,36 @@ export default function ContactForm() {
     setStatus("idle");
   };
 
-  if (status === "success") {
+  if (status === "sent" || status === "prepared") {
     return (
       <div className="border-line bg-ink-900 rounded-lg border p-8 sm:p-10">
         <div role="status">
           <CircleCheck className="text-gold-500 h-7 w-7" aria-hidden="true" />
           <h3 className="heading-3 mt-6">
-            Thank you. Your enquiry has been prepared successfully.
+            {status === "sent"
+              ? "Thank you. Your enquiry has been sent."
+              : "Thank you. Your enquiry has been prepared successfully."}
           </h3>
           <p className="body-text mt-5 max-w-lg">
-            Your details have been validated and are ready to send.
+            {status === "sent"
+              ? "Our team will follow up with the appropriate next steps."
+              : "Your details have been validated and are ready to send."}
           </p>
         </div>
 
-        <div className="border-line text-mist-400 mt-8 flex gap-3 border-t pt-6 text-sm">
-          <Info
-            className="text-azure-400 mt-0.5 h-4 w-4 shrink-0"
-            aria-hidden="true"
-          />
-          <p>
-            Email delivery is not connected yet, so this enquiry has not been sent to
-            anyone. Connecting an API route or email provider in{" "}
-            <code className="text-mist-300">ContactForm.tsx</code> will complete the
-            submission.
-          </p>
-        </div>
+        {status === "prepared" ? (
+          <div className="border-line text-mist-400 mt-8 flex gap-3 border-t pt-6 text-sm">
+            <Info
+              className="text-azure-400 mt-0.5 h-4 w-4 shrink-0"
+              aria-hidden="true"
+            />
+            <p>
+              Email delivery is not configured yet, so this enquiry has not been
+              sent to anyone. Add the destination address and API key to the
+              environment and it will be delivered.
+            </p>
+          </div>
+        ) : null}
 
         <Button onClick={reset} variant="outline" size="sm" className="mt-8">
           Send Another Enquiry
@@ -227,6 +256,15 @@ export default function ContactForm() {
 
   return (
     <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-8">
+      {status === "error" ? (
+        <p
+          role="alert"
+          className="border-line text-mist-200 rounded-md border bg-red-500/10 px-4 py-3 text-sm"
+        >
+          Something went wrong sending your enquiry. Please try again.
+        </p>
+      ) : null}
+
       <div className="grid gap-8 sm:grid-cols-2">
         <Field
           label="Full Name"
@@ -308,7 +346,11 @@ export default function ContactForm() {
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={errors.message ? errorId("message") : undefined}
           placeholder="Tell us about your project, scope and requirements."
-          className={cn(fieldClasses, "resize-y", errors.message && "border-red-400/70")}
+          className={cn(
+            fieldClasses,
+            "resize-y",
+            errors.message && "border-red-400/70",
+          )}
         />
         <FieldError id={errorId("message")} message={errors.message} />
       </div>
@@ -317,7 +359,10 @@ export default function ContactForm() {
         <Button type="submit" size="lg" disabled={status === "submitting"}>
           {status === "submitting" ? (
             <>
-              <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />
+              <LoaderCircle
+                className="h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
               Sending
             </>
           ) : (
@@ -325,7 +370,8 @@ export default function ContactForm() {
           )}
         </Button>
         <p className="body-muted max-w-xs">
-          Fields marked with <span className="text-gold-500">*</span> are required.
+          Fields marked with <span className="text-gold-500">*</span> are
+          required.
         </p>
       </div>
     </form>

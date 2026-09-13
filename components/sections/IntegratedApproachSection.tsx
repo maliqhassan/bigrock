@@ -2,6 +2,7 @@ import { ArrowRight, Building2, Cog, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import Reveal from "@/components/ui/Reveal";
 
 type Discipline = {
   title: string;
@@ -33,7 +34,10 @@ function DisciplineNode({ item }: { item: Discipline }) {
  */
 export default function IntegratedApproachSection() {
   return (
-    <section aria-labelledby="integrated-approach-heading" className="surface-blue section">
+    <section
+      aria-labelledby="integrated-approach-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <SectionHeading
           eyebrow="Integrated Approach"
@@ -42,7 +46,7 @@ export default function IntegratedApproachSection() {
           description="By bringing complementary disciplines together, we support coordinated project delivery and a more integrated approach to construction."
         />
 
-        <div className="mt-16 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <Reveal className="mt-16 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-6">
           {disciplines.map((item, index) => (
             <div
               key={item.title}
@@ -57,12 +61,12 @@ export default function IntegratedApproachSection() {
               ) : null}
             </div>
           ))}
-        </div>
+        </Reveal>
 
         <p className="body-muted mt-8 max-w-2xl">
-          These disciplines are coordinated capabilities rather than a fixed sequence
-          &mdash; they run alongside one another and inform delivery throughout a
-          project.
+          These disciplines are coordinated capabilities rather than a fixed
+          sequence &mdash; they run alongside one another and inform delivery
+          throughout a project.
         </p>
       </div>
     </section>

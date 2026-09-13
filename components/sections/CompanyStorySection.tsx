@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import Reveal from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 
 const capabilities = [
@@ -24,24 +25,26 @@ export default function CompanyStorySection() {
               title="Built on Experience. Driven by Commitment."
             />
 
-            <div className="mt-10 flex flex-col gap-6">
+            <Reveal className="mt-10 flex flex-col gap-6" delay={0.1}>
               <p className="body-text max-w-2xl">
-                {site.legalName} was founded in {site.country} in {site.foundedYear}{" "}
-                and has since grown into a construction and engineering partner
-                trusted to deliver demanding work with consistency.
+                {site.legalName} was founded in {site.country} in{" "}
+                {site.foundedYear} and has since grown into a construction and
+                engineering partner trusted to deliver demanding work with
+                consistency.
               </p>
               <p className="body-text max-w-2xl">
-                Today the company brings together 150+ engineers, supervisors and
-                certified tradespeople, giving projects the combination of technical
-                knowledge and on-site experience that complex delivery requires.
+                Today the company brings together 150+ engineers, supervisors
+                and certified tradespeople, giving projects the combination of
+                technical knowledge and on-site experience that complex delivery
+                requires.
               </p>
               <p className="body-text max-w-2xl">
-                Our civil, mechanical and electrical capability sits under one roof,
-                supporting end-to-end delivery from planning through completion, with
-                quality control, risk management and transparent client communication
-                applied throughout.
+                Our civil, mechanical and electrical capability sits under one
+                roof, supporting end-to-end delivery from planning through
+                completion, with quality control, risk management and
+                transparent client communication applied throughout.
               </p>
-            </div>
+            </Reveal>
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
@@ -55,7 +58,10 @@ export default function CompanyStorySection() {
                   key={capability}
                   className="border-line flex items-center gap-4 border-t py-5 first:border-t-0 first:pt-0"
                 >
-                  <Check className="text-gold-500 h-4 w-4 shrink-0" aria-hidden="true" />
+                  <Check
+                    className="text-gold-500 h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  />
                   <span className="text-mist-200 text-sm sm:text-[0.9375rem]">
                     {capability}
                   </span>
