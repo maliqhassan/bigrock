@@ -20,33 +20,22 @@ const message = [
   "Whatever you are planning, we would be glad to discuss it with you.",
 ];
 
-/** Architectural plate, visible until a portrait is supplied. */
-const plateStyle = {
-  backgroundImage: [
-    "linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px)",
-    "linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
-  ].join(", "),
-  backgroundSize: "52px 100%, 100% 52px",
-} as const;
-
 export default function CeoMessageSection() {
   const { ceoName, ceoTitle } = site.leadership;
 
   return (
-    <section aria-labelledby="leadership-heading" className="bg-ink-950 section">
+    <section
+      aria-labelledby="leadership-heading"
+      className="bg-ink-950 section"
+    >
       <div className="site-container">
         <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Portrait */}
           <div className="lg:col-span-5">
             <RevealImage className="border-line bg-ink-900 aspect-[4/5] rounded-xl border">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0"
-                style={plateStyle}
-              />
               <Image
                 src="/images/ceo.jpg"
-                alt=""
+                alt={`${ceoTitle} of ${site.legalName}`}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"
@@ -77,7 +66,10 @@ export default function CeoMessageSection() {
 
               <blockquote className="mt-2 flex flex-col gap-6">
                 {message.map((paragraph) => (
-                  <p key={paragraph.slice(0, 32)} className="body-text max-w-2xl">
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="body-text max-w-2xl"
+                  >
                     {paragraph}
                   </p>
                 ))}
