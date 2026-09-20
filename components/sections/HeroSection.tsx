@@ -20,7 +20,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-20">
         <Image
           src="/images/hero.jpg"
-          alt=""
+          alt="Two engineers in hi-vis vests and hard hats reviewing drawings on a construction site at sunset"
           fill
           priority
           sizes="100vw"

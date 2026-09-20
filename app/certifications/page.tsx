@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+
 import PageHero from "@/components/sections/PageHero";
 import QualityApproachSection from "@/components/sections/QualityApproachSection";
 import QualityStandardsSection from "@/components/sections/QualityStandardsSection";
@@ -7,15 +10,23 @@ import QualityStatementSection from "@/components/sections/QualityStatementSecti
 import QualityCapabilitySection from "@/components/sections/QualityCapabilitySection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Quality & Standards",
   description:
     "Big Rock Builders delivers projects with structured quality control, risk management, responsible execution and transparent client communication from planning through completion.",
-};
+  path: "/certifications",
+  image: "/og/certifications.jpg",
+});
 
 export default function QualityStandardsPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Quality & Standards", path: "/certifications" },
+        ])}
+      />
+
       <PageHero
         eyebrow="Quality & Standards"
         headingId="quality-hero-heading"
@@ -28,7 +39,10 @@ export default function QualityStandardsPage() {
           </>
         }
         description="Our approach is grounded in disciplined project delivery, quality control, risk management and transparent communication — helping clients move from planning to completion with confidence."
-        image={{ src: "/images/quality-hero.jpg" }}
+        image={{
+          src: "/images/quality-hero.jpg",
+          alt: "Digital callipers measuring a steel section during quality inspection",
+        }}
       />
       <QualityApproachSection />
       <QualityStandardsSection />

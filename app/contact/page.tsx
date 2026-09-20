@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+
 import PageHero from "@/components/sections/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ContactForm from "@/components/sections/ContactForm";
@@ -8,15 +11,21 @@ import ContactInformationSection from "@/components/sections/ContactInformationS
 import ProjectEnquiryNoteSection from "@/components/sections/ProjectEnquiryNoteSection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
     "Talk to Big Rock Builders about your construction or engineering requirements — new builds, infrastructure, renovations and multidisciplinary project delivery.",
-};
+  path: "/contact",
+  image: "/og/contact.jpg",
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([{ name: "Contact", path: "/contact" }])}
+      />
+
       <PageHero
         eyebrow="Get in Touch"
         headingId="contact-hero-heading"
@@ -27,7 +36,10 @@ export default function ContactPage() {
           </>
         }
         description="Have a construction or engineering requirement? Talk to Big Rock Builders about your project and delivery needs."
-        image={{ src: "/images/contact-hero.jpg" }}
+        image={{
+          src: "/images/contact-hero.jpg",
+          alt: "Office staff working at laptops",
+        }}
       />
 
       <section

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+
 import PageHero from "@/components/sections/PageHero";
 import SustainabilityOverviewSection from "@/components/sections/SustainabilityOverviewSection";
 import SustainabilityPrinciplesSection from "@/components/sections/SustainabilityPrinciplesSection";
@@ -7,15 +10,23 @@ import SustainabilityStatementSection from "@/components/sections/Sustainability
 import LongTermCapabilitySection from "@/components/sections/LongTermCapabilitySection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Sustainability",
   description:
     "Big Rock Builders approaches construction with attention to efficiency, responsible resource use and the long-term value of the spaces and infrastructure we help create.",
-};
+  path: "/sustainability",
+  image: "/og/sustainability.jpg",
+});
 
 export default function SustainabilityPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Sustainability", path: "/sustainability" },
+        ])}
+      />
+
       <PageHero
         eyebrow="Sustainability"
         headingId="sustainability-hero-heading"
@@ -28,7 +39,10 @@ export default function SustainabilityPage() {
           </>
         }
         description="We believe responsible construction should consider the long-term impact of the spaces and infrastructure we create."
-        image={{ src: "/images/sustainability-hero.jpg" }}
+        image={{
+          src: "/images/sustainability-hero.jpg",
+          alt: "A concrete structure under construction with cranes and scaffolding",
+        }}
       />
       <SustainabilityOverviewSection />
       <SustainabilityPrinciplesSection />

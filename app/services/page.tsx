@@ -1,19 +1,28 @@
 import type { Metadata } from "next";
 
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+
 import PageHero from "@/components/sections/PageHero";
 import ServicesOverviewSection from "@/components/sections/ServicesOverviewSection";
 import IntegratedCapabilitySection from "@/components/sections/IntegratedCapabilitySection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Services",
   description:
     "Big Rock Builders provides civil and structural construction, project management, renovations and extensions, and sustainable building — with integrated civil, mechanical and electrical capability.",
-};
+  path: "/services",
+  image: "/og/services.jpg",
+});
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([{ name: "Services", path: "/services" }])}
+      />
+
       <PageHero
         eyebrow="Our Services"
         headingId="services-hero-heading"
@@ -26,7 +35,10 @@ export default function ServicesPage() {
           </>
         }
         description="From civil and structural construction to project management, renovations and sustainable building, we provide integrated solutions for demanding projects."
-        image={{ src: "/images/services-hero.jpg" }}
+        image={{
+          src: "/images/services-hero.jpg",
+          alt: "Construction workers tying reinforcement steel on a slab at sunset",
+        }}
       />
       <ServicesOverviewSection />
       <IntegratedCapabilitySection />
