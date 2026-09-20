@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import {
   FacebookGlyph,
   InstagramGlyph,
-  LinkedInGlyph,
   WhatsAppGlyph,
 } from "@/components/ui/BrandGlyphs";
 import { site } from "@/lib/site";
@@ -22,7 +21,6 @@ import { site } from "@/lib/site";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const channels = [
-  { name: "LinkedIn", href: site.social.linkedin, Glyph: LinkedInGlyph },
   { name: "Facebook", href: site.social.facebook, Glyph: FacebookGlyph },
   { name: "Instagram", href: site.social.instagram, Glyph: InstagramGlyph },
   {

@@ -9,14 +9,35 @@ export const site = {
   tagline: "Building Strength. Creating Landmarks.",
   foundedYear: 2016,
   country: "Pakistan",
+  /** Registered office. */
+  address: {
+    lines: [
+      "Office G-06 & LG-07, Grand Xcito",
+      "Plot 12, D Markaz, Gulberg Residencia",
+      "Islamabad",
+    ],
+    /** Single-line form, for maps and metadata. */
+    full: "Office G-06 & LG-07, Grand Xcito, Plot 12, D Markaz, Gulberg Residencia, Islamabad",
+  },
+  /** Office email. */
+  email: "bigrockbuildres@gmail.com",
+  /** Office phone. `display` is what people read, `dial` is what tel: uses. */
+  phone: {
+    display: "+92 320 999 1911",
+    dial: "+923209991911",
+  },
   /** WhatsApp number in international format, digits only, e.g. "923001234567".
       The floating button stays hidden until this is filled in. */
-  whatsapp: "",
+  whatsapp: "923209991911",
+  /** Leadership. Set ceoName and the signature carries a name. */
+  leadership: {
+    ceoName: "",
+    ceoTitle: "Chief Executive Officer",
+  },
   /** Public profiles. Each tile stays inert until its address is filled in. */
   social: {
-    linkedin: "",
-    facebook: "",
-    instagram: "",
+    facebook: "https://www.facebook.com/bigrockbuilders",
+    instagram: "https://www.instagram.com/bigrockbuilderspvt",
   },
 } as const;
 
@@ -27,13 +48,13 @@ export type NavItem = {
 
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
   { label: "Expertise", href: "/expertise" },
   { label: "Quality & Standards", href: "/certifications" },
   { label: "Sustainability", href: "/sustainability" },
-  { label: "Contact", href: "/contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export const serviceNav: NavItem[] = [

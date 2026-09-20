@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import PageHero from "@/components/sections/PageHero";
 import ProjectsOverviewSection from "@/components/sections/ProjectsOverviewSection";
+import BeforeAfterSection from "@/components/sections/BeforeAfterSection";
 import ProjectApproachSection from "@/components/sections/ProjectApproachSection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
 
@@ -22,6 +23,7 @@ export default function ProjectsPage() {
         image={{ src: "/images/projects-hero.jpg" }}
       />
       <ProjectsOverviewSection />
+      <BeforeAfterSection />
       <ProjectApproachSection />
       <ContactCtaSection
         eyebrow="Start Your Project"

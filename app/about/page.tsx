@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import PageHero from "@/components/sections/PageHero";
 import CompanyStorySection from "@/components/sections/CompanyStorySection";
+import CeoMessageSection from "@/components/sections/CeoMessageSection";
+import MissionVisionSection from "@/components/sections/MissionVisionSection";
 import DifferentiatorsSection from "@/components/sections/DifferentiatorsSection";
 import TeamCapabilitySection from "@/components/sections/TeamCapabilitySection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
@@ -27,9 +29,11 @@ export default function AboutPage() {
           </>
         }
         description="Founded in Pakistan in 2016, Big Rock Builders (Pvt Ltd) delivers construction and engineering solutions with a focus on quality, disciplined execution and client satisfaction."
-        image={{ src: "/images/about-hero.jpg" }}
+        image={{ src: "/images/about.jpg" }}
       />
       <CompanyStorySection />
+      <CeoMessageSection />
+      <MissionVisionSection />
       <DifferentiatorsSection />
       <TeamCapabilitySection />
       <ContactCtaSection

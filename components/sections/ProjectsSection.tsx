@@ -12,11 +12,9 @@ type Project = {
 };
 
 const featuredProject: Project = {
-  title: "Punjab House",
-  category: "Featured Project",
-  description:
-    "A landmark project demonstrating Big Rock Builders' capability in delivering substantial construction works with disciplined execution and attention to quality.",
-  image: "/images/project-punjab-house.jpg",
+  title: "DHA Development Projects",
+  category: "Construction",
+  image: "/images/project-dha-1.jpg",
 };
 
 const supportingProjects: Project[] = [
@@ -38,6 +36,7 @@ const supportingProjects: Project[] = [
 
 /** Additional delivered projects, listed by name only. */
 const furtherProjects = [
+  "Punjab House",
   "FGEHF Water Supply Wells",
   "Soil Nailing & Excavation",
   "Maryam Nawaz Health Clinic",
@@ -84,7 +83,9 @@ function ProjectTile({ project, featured = false, sizes }: ProjectTileProps) {
         </h3>
         <span className="rule-gold mt-5" aria-hidden="true" />
         {project.description ? (
-          <p className={`${featured ? "body-text" : "body-muted"} mt-5 max-w-xl`}>
+          <p
+            className={`${featured ? "body-text" : "body-muted"} mt-5 max-w-xl`}
+          >
             {project.description}
           </p>
         ) : null}
@@ -96,10 +97,7 @@ function ProjectTile({ project, featured = false, sizes }: ProjectTileProps) {
 /** Homepage portfolio: one dominant featured project beside two supporting works. */
 export default function ProjectsSection() {
   return (
-    <section
-      aria-labelledby="projects-heading"
-      className="bg-ink-950 section"
-    >
+    <section aria-labelledby="projects-heading" className="bg-ink-950 section">
       <div className="site-container">
         <SectionHeading
           eyebrow="Selected Projects"

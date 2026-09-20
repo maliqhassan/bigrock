@@ -11,11 +11,16 @@ type Project = {
   image?: string;
 };
 
-const featuredProject: Project = {
+/** The lead project runs as a set of images rather than a single tile. */
+const featuredProject = {
   number: "01",
-  title: "Punjab House",
+  title: "DHA Development Projects",
   category: "Construction",
-  image: "/images/project-punjab-house.jpg",
+  images: [
+    "/images/project-dha-1.jpg",
+    "/images/project-dha-2.jpg",
+    "/images/project-dha-3.jpg",
+  ],
 };
 
 const projects: Project[] = [
@@ -139,12 +144,50 @@ export default function ProjectsOverviewSection() {
 
         <RevealList className="mt-16 grid gap-6 sm:grid-cols-2">
           <RevealItem className="sm:col-span-2">
-            <ProjectTile
-              project={featuredProject}
-              featured
-              sizes="(min-width: 640px) 90vw, 100vw"
-              aspect="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]"
-            />
+            {/* Full-bleed mosaic: the three images tile the whole frame, with
+                the label overlaid, so it sits in the same language as the
+                single-image tiles below. */}
+            <article className="border-line group relative aspect-[4/5] overflow-hidden rounded-xl border sm:aspect-[16/9] lg:aspect-[21/9]">
+              {/* Two columns on phones (lead image over a pair), three from
+                  `sm` (lead image beside a stacked pair). No gaps, so the
+                  frame is covered edge to edge. */}
+              <div className="absolute inset-0 grid grid-cols-2 grid-rows-3 sm:grid-cols-3 sm:grid-rows-2">
+                <div className="relative col-span-2 row-span-2">
+                  <Image
+                    src={featuredProject.images[0]}
+                    alt=""
+                    fill
+                    sizes="(min-width: 640px) 60vw, 100vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+
+                {featuredProject.images.slice(1).map((src) => (
+                  <div key={src} className="relative">
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 640px) 30vw, 50vw"
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div
+                aria-hidden="true"
+                className="from-ink-950 via-ink-950/55 absolute inset-0 bg-gradient-to-t to-transparent"
+              />
+
+              <div className="absolute inset-x-0 bottom-0 flex flex-col p-7 sm:p-10">
+                <span className="eyebrow">{featuredProject.category}</span>
+                <h3 className="heading-2 mt-3 text-white">
+                  {featuredProject.title}
+                </h3>
+                <span className="rule-gold mt-5" aria-hidden="true" />
+              </div>
+            </article>
           </RevealItem>
 
           {projects.map((project, index) => {

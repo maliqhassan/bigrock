@@ -3,11 +3,15 @@ import { site } from "@/lib/site";
 
 type Detail = {
   label: string;
-  value: string;
+  /** A string, or several lines for an address. */
+  value: string | readonly string[];
 };
 
 const details: Detail[] = [
   { label: "Company", value: site.legalName },
+  { label: "Office", value: site.address.lines },
+  { label: "Email", value: site.email },
+  { label: "Phone", value: site.phone.display },
   { label: "Founded", value: "Founded in Pakistan in 2016" },
   {
     label: "Team",
@@ -16,8 +20,8 @@ const details: Detail[] = [
 ];
 
 /**
- * Company details. Deliberately carries no phone, email, address or social
- * accounts — none are verified in the company profile.
+ * Company details. Carries only what has been supplied — no phone number or
+ * email address yet, so neither is shown.
  */
 export default function ContactInformationSection() {
   return (
@@ -49,7 +53,17 @@ export default function ContactInformationSection() {
                     {detail.label}
                   </dt>
                   <dd className="text-mist-200 text-[0.9375rem]">
-                    {detail.value}
+                    {Array.isArray(detail.value) ? (
+                      <address className="space-y-0.5 not-italic">
+                        {detail.value.map((line) => (
+                          <span key={line} className="block">
+                            {line}
+                          </span>
+                        ))}
+                      </address>
+                    ) : (
+                      detail.value
+                    )}
                   </dd>
                 </div>
               ))}

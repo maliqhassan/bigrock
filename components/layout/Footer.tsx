@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 import Logo from "@/components/layout/Logo";
 import FooterBuildings from "@/components/layout/FooterBuildings";
@@ -39,26 +40,73 @@ export default function Footer() {
 
       <FooterBuildings />
       <div className="site-container section-tight relative">
-        <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           {/* Brand */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <Logo size="lg" variant="plate" />
             <span className="rule-gold mt-7" aria-hidden="true" />
             <p className="eyebrow mt-7 block">{site.tagline}</p>
-            <p className="body-muted mt-5 max-w-sm">
+            <p className="body-muted mt-5 max-w-xs">
               End-to-end project delivery across civil, mechanical and
-              electrical disciplines, backed by quality control, risk management
-              and transparent client communication.
+              electrical disciplines.
             </p>
 
             <SocialLinks className="mt-8" />
           </div>
 
-          {/* Navigation */}
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8">
+          {/* Navigation and contact */}
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-9 lg:gap-8">
             <FooterColumn title="Company" items={companyNav} />
             <FooterColumn title="Services" items={serviceNav} />
             <FooterColumn title="Expertise" items={expertiseNav} />
+
+            <div>
+              <h2 className="font-display text-gold-500 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase">
+                Contact
+              </h2>
+
+              <ul className="mt-6 flex flex-col gap-4">
+                <li className="flex gap-3">
+                  <MapPin
+                    className="text-gold-500 mt-0.5 h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  />
+                  <address className="space-y-0.5 not-italic">
+                    {site.address.lines.map((line) => (
+                      <span key={line} className="body-muted block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                </li>
+
+                <li className="flex gap-3">
+                  <Mail
+                    className="text-gold-500 mt-0.5 h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="link-muted text-sm break-all"
+                  >
+                    {site.email}
+                  </a>
+                </li>
+
+                <li className="flex gap-3">
+                  <Phone
+                    className="text-gold-500 mt-0.5 h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href={`tel:${site.phone.dial}`}
+                    className="link-muted text-sm whitespace-nowrap"
+                  >
+                    {site.phone.display}
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

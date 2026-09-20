@@ -24,14 +24,20 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
           animate="show"
           variants={{
             hidden: {},
-            show: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
+            show: {
+              transition: { staggerChildren: 0.07, delayChildren: 0.12 },
+            },
           }}
         >
           <motion.p
             className="eyebrow"
             variants={{
               hidden: { opacity: 0, y: 12 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, ease: EASE },
+              },
             }}
           >
             Get in Touch
@@ -42,7 +48,11 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
             className="heading-3 mt-4"
             variants={{
               hidden: { opacity: 0, y: 14 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.55, ease: EASE },
+              },
             }}
           >
             Tell Us About Your Project.
@@ -66,21 +76,29 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
             className="body-muted mt-5 max-w-md"
             variants={{
               hidden: { opacity: 0, y: 12 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, ease: EASE },
+              },
             }}
           >
-            Share the essentials of your project and our team will follow up with
-            the appropriate next steps.
+            Share the essentials of your project and our team will follow up
+            with the appropriate next steps.
           </motion.p>
 
           <motion.div
             className="mt-8"
             variants={{
               hidden: { opacity: 0, y: 16 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, ease: EASE },
+              },
             }}
           >
-            <ContactForm />
+            <ContactForm framed={false} />
           </motion.div>
         </motion.div>
       </div>

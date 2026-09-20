@@ -137,12 +137,18 @@ function Field({
   );
 }
 
+type ContactFormProps = {
+  /** Renders the form on a card. Off inside the enquiry dialog, which is
+      already a panel. */
+  framed?: boolean;
+};
+
 /**
  * Enquiry form. Posts to /api/enquiries, which delivers by email once the
  * destination address and API key are configured; until then the route says
  * so and the form reports honestly that nothing was sent.
  */
-export default function ContactForm() {
+export default function ContactForm({ framed = true }: ContactFormProps) {
   const formId = useId();
   const [fields, setFields] = useState<Fields>(emptyFields);
   const [errors, setErrors] = useState<Errors>({});
@@ -218,7 +224,12 @@ export default function ContactForm() {
 
   if (status === "sent" || status === "prepared") {
     return (
-      <div className="border-line bg-ink-900 rounded-lg border p-8 sm:p-10">
+      <div
+        className={cn(
+          framed && "card border-line bg-ink-900 p-8 sm:p-10",
+          !framed && "p-0",
+        )}
+      >
         <div role="status">
           <CircleCheck className="text-gold-500 h-7 w-7" aria-hidden="true" />
           <h3 className="heading-3 mt-6">
@@ -255,7 +266,14 @@ export default function ContactForm() {
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-8">
+    <form
+      noValidate
+      onSubmit={handleSubmit}
+      className={cn(
+        "flex flex-col gap-8",
+        framed && "card border-line bg-ink-900 p-7 sm:p-10",
+      )}
+    >
       {status === "error" ? (
         <p
           role="alert"
