@@ -4,7 +4,7 @@ import { Inter, Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MotionProvider from "@/components/ui/MotionProvider";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import FloatingActions from "@/components/layout/FloatingActions";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <Footer />
-          <WhatsAppButton />
+          <FloatingActions />
         </MotionProvider>
       </body>
     </html>
