@@ -5,6 +5,7 @@ import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 import PageHero from "@/components/sections/PageHero";
 import QualityApproachSection from "@/components/sections/QualityApproachSection";
+import CredentialsSection from "@/components/sections/CredentialsSection";
 import QualityStandardsSection from "@/components/sections/QualityStandardsSection";
 import QualityStatementSection from "@/components/sections/QualityStatementSection";
 import QualityCapabilitySection from "@/components/sections/QualityCapabilitySection";
@@ -45,6 +46,7 @@ export default function QualityStandardsPage() {
         }}
       />
       <QualityApproachSection />
+      <CredentialsSection />
       <QualityStandardsSection />
       <QualityStatementSection />
       <QualityCapabilitySection />

@@ -5,19 +5,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { site } from "@/lib/site";
 
 /**
- * Message from leadership.
- *
- * DRAFT COPY — the message below is written from the verified company profile
- * only (founding year, team size, stated commitments). It contains no invented
- * facts, but it is not a real statement from the company's chief executive.
- * Replace `message` with the authentic text, and set `leadership.ceoName` in
- * lib/site.ts so the signature carries a name.
+ * Message from leadership — the authentic statement as supplied by the
+ * company, reproduced verbatim. The signature comes from
+ * `leadership` in lib/site.ts.
  */
 
 const message = [
-  "When we started Big Rock Builders in 2016, the ambition was straightforward: build well, and be straight with the people who trust us to do it. Construction is demanding work, and clients feel the difference between a contractor who manages a project and one who simply completes it.",
-  "That belief still shapes how we operate. Our civil, mechanical and electrical teams work under one roof so that coordination happens early rather than on site. Quality control and risk management are part of how a project is planned, not a check at the end. And we would rather have a difficult conversation with a client today than deliver a surprise tomorrow.",
-  "Whatever you are planning, we would be glad to discuss it with you.",
+  "At Big Rock Builders (Pvt Ltd), we believe every project should reflect Strength, Quality, and Trust. Our goal is to deliver buildings that not only meet expectations, but stand the test of time. We are proud of the work we do and grateful for the confidence our clients place in us.",
 ];
 
 export default function CeoMessageSection() {
@@ -35,7 +29,7 @@ export default function CeoMessageSection() {
             <RevealImage className="border-line bg-ink-900 aspect-[4/5] rounded-xl border">
               <Image
                 src="/images/ceo.jpg"
-                alt={`${ceoTitle} of ${site.legalName}`}
+                alt={`${ceoName}, ${ceoTitle} of ${site.legalName}`}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"

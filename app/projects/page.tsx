@@ -5,6 +5,7 @@ import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 import PageHero from "@/components/sections/PageHero";
 import ProjectsOverviewSection from "@/components/sections/ProjectsOverviewSection";
+import ProjectValueSection from "@/components/sections/ProjectValueSection";
 import BeforeAfterSection from "@/components/sections/BeforeAfterSection";
 import ProjectApproachSection from "@/components/sections/ProjectApproachSection";
 import ContactCtaSection from "@/components/sections/ContactCtaSection";
@@ -35,6 +36,7 @@ export default function ProjectsPage() {
         }}
       />
       <ProjectsOverviewSection />
+      <ProjectValueSection />
       <BeforeAfterSection />
       <ProjectApproachSection />
       <ContactCtaSection

@@ -67,8 +67,9 @@ function StandardColumn({ item }: { item: Standard }) {
 }
 
 /**
- * Quality and professional standards. Deliberately states commitments only —
- * the company profile provides no named certifications or accreditations.
+ * Quality and professional standards on the home page — commitments only.
+ * The registrations and licences the company actually holds are listed, with
+ * the certificates themselves, in CredentialsSection on /certifications.
  */
 export default function CertificationsSection() {
   return (

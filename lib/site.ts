@@ -29,10 +29,10 @@ export const site = {
   /** WhatsApp number in international format, digits only, e.g. "923001234567".
       The floating button stays hidden until this is filled in. */
   whatsapp: "923209991911",
-  /** Leadership. Set ceoName and the signature carries a name. */
+  /** Leadership. */
   leadership: {
-    ceoName: "",
-    ceoTitle: "Chief Executive Officer",
+    ceoName: "Farrukh Raja",
+    ceoTitle: "Founder & Chief Executive Officer",
   },
   /** Public profiles. Each tile stays inert until its address is filled in. */
   social: {
@@ -60,7 +60,10 @@ export const mainNav: NavItem[] = [
 export const serviceNav: NavItem[] = [
   { label: "Civil Structural", href: "/services#civil-structural" },
   { label: "Project Management", href: "/services#project-management" },
-  { label: "Renovations & Extensions", href: "/services#renovations-extensions" },
+  {
+    label: "Renovations & Extensions",
+    href: "/services#renovations-extensions",
+  },
   { label: "Sustainable Building", href: "/services#sustainable-building" },
 ];
 
