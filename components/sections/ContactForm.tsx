@@ -7,6 +7,12 @@ import { ChevronDown, CircleCheck, Info, LoaderCircle } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
+/**
+ * The site is exported as static files, so delivery is handled by a small PHP
+ * script sitting beside them rather than a route handler.
+ */
+const ENQUIRY_ENDPOINT = "/send-enquiry.php";
+
 type Fields = {
   name: string;
   email: string;
@@ -14,6 +20,8 @@ type Fields = {
   company: string;
   projectType: string;
   message: string;
+  /** Honeypot — hidden from people, so anything here came from a bot. */
+  website: string;
 };
 
 type Errors = Partial<Record<keyof Fields, string>>;
@@ -27,6 +35,7 @@ const emptyFields: Fields = {
   company: "",
   projectType: "",
   message: "",
+  website: "",
 };
 
 const projectTypes = [
@@ -144,9 +153,9 @@ type ContactFormProps = {
 };
 
 /**
- * Enquiry form. Posts to /api/enquiries, which delivers by email once the
- * destination address and API key are configured; until then the route says
- * so and the form reports honestly that nothing was sent.
+ * Enquiry form. Posts to send-enquiry.php, which mails the enquiry to the
+ * office address. If that script cannot be reached the form says plainly that
+ * nothing was sent rather than claiming delivery.
  */
 export default function ContactForm({ framed = true }: ContactFormProps) {
   const formId = useId();
@@ -188,11 +197,19 @@ export default function ContactForm({ framed = true }: ContactFormProps) {
     setStatus("submitting");
 
     try {
-      const response = await fetch("/api/enquiries", {
+      const response = await fetch(ENQUIRY_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(fields),
       });
+
+      // No handler at that address — it is missing from the server, or this is
+      // a local run with no PHP. Either way nothing was sent, and the form
+      // says so rather than claiming delivery.
+      if (response.status === 404) {
+        setStatus("prepared");
+        return;
+      }
 
       const result = (await response.json()) as {
         delivered?: boolean;
@@ -201,12 +218,6 @@ export default function ContactForm({ framed = true }: ContactFormProps) {
 
       if (result.delivered) {
         setStatus("sent");
-        return;
-      }
-
-      // The route reports this until the destination address and key are set.
-      if (result.reason === "not-configured") {
-        setStatus("prepared");
         return;
       }
 
@@ -251,9 +262,9 @@ export default function ContactForm({ framed = true }: ContactFormProps) {
               aria-hidden="true"
             />
             <p>
-              Email delivery is not configured yet, so this enquiry has not been
-              sent to anyone. Add the destination address and API key to the
-              environment and it will be delivered.
+              The delivery script was not reachable, so this enquiry has not
+              been sent to anyone. On the live site, check that send-enquiry.php
+              sits beside the uploaded pages.
             </p>
           </div>
         ) : null}
@@ -270,7 +281,7 @@ export default function ContactForm({ framed = true }: ContactFormProps) {
       noValidate
       onSubmit={handleSubmit}
       className={cn(
-        "flex flex-col gap-8",
+        "relative flex flex-col gap-8",
         framed && "card border-line bg-ink-900 p-7 sm:p-10",
       )}
     >
@@ -282,6 +293,25 @@ export default function ContactForm({ framed = true }: ContactFormProps) {
           Something went wrong sending your enquiry. Please try again.
         </p>
       ) : null}
+
+      {/* Honeypot. Positioned off-screen rather than display:none, which some
+          bots detect, and kept out of the tab order and the accessibility
+          tree so nobody using the form ever meets it. */}
+      <div
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor={fieldId("website")}>Website</label>
+        <input
+          id={fieldId("website")}
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={fields.website}
+          onChange={handleChange}
+        />
+      </div>
 
       <div className="grid gap-8 sm:grid-cols-2">
         <Field

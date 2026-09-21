@@ -14,25 +14,24 @@ import { site } from "@/lib/site";
 /**
  * Canonical origin, used for canonical URLs, Open Graph and the sitemap.
  *
- * Set NEXT_PUBLIC_SITE_URL to the live domain before launch. If a deploy ever
- * goes out without it, the platform's own production domain is used rather
- * than localhost — a wrong canonical tag would keep the site out of search
- * results entirely.
+ * Defaults to the live domain in lib/site.ts, so a build made without any
+ * environment set is still correct. NEXT_PUBLIC_SITE_URL overrides it, which
+ * is what a staging build would use.
  */
-function resolveSiteUrl() {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL;
-  }
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? site.url).replace(
+  /\/+$/,
+  "",
+);
 
-  // Set automatically on Vercel; the production domain, not the preview one.
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
-
-  return "http://localhost:3000";
+/**
+ * The static export writes each route as <route>/index.html, so the live URL
+ * carries a trailing slash. Canonical tags, Open Graph URLs, the sitemap and
+ * breadcrumbs all have to agree with that or they point at a redirect.
+ */
+export function canonicalPath(path: string) {
+  if (path === "/") return "/";
+  return path.endsWith("/") ? path : `${path}/`;
 }
-
-export const siteUrl = resolveSiteUrl().replace(/\/+$/, "");
 
 /** The description used for the site as a whole. */
 export const siteDescription =
@@ -60,6 +59,7 @@ export function pageMetadata({
   image = "/og/default.jpg",
 }: PageMetaInput): Metadata {
   const isHome = path === "/";
+  const canonical = canonicalPath(path);
   const fullTitle = isHome
     ? `${site.name} | ${site.tagline}`
     : `${title} | ${site.name}`;
@@ -69,12 +69,12 @@ export function pageMetadata({
     // "%s | Big Rock Builders" template rather than reading "Home | ...".
     title: isHome ? { absolute: fullTitle } : title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical },
     openGraph: {
       type: "website",
       siteName: site.name,
       locale: "en_PK",
-      url: path,
+      url: canonical,
       title: fullTitle,
       description,
       images: [
@@ -159,7 +159,7 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
         "@type": "ListItem",
         position: index + 1,
         name: crumb.name,
-        item: absolute(crumb.path),
+        item: absolute(canonicalPath(crumb.path)),
       }),
     ),
   };

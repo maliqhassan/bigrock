@@ -6,6 +6,8 @@
 export const site = {
   name: "Big Rock Builders",
   legalName: "Big Rock Builders (Pvt Ltd)",
+  /** Live origin, no trailing slash. NEXT_PUBLIC_SITE_URL overrides it. */
+  url: "https://bigrockbuilders.com.pk",
   tagline: "Building Strength. Creating Landmarks.",
   foundedYear: 2016,
   country: "Pakistan",
@@ -20,7 +22,7 @@ export const site = {
     full: "Office G-06 & LG-07, Grand Xcito, Plot 12, D Markaz, Gulberg Residencia, Islamabad",
   },
   /** Office email. */
-  email: "bigrockbuildres@gmail.com",
+  email: "info@bigrockbuilders.com.pk",
   /** Office phone. `display` is what people read, `dial` is what tel: uses. */
   phone: {
     display: "+92 320 999 1911",
