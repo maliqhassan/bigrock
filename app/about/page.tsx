@@ -5,7 +5,6 @@ import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 import PageHero from "@/components/sections/PageHero";
 import CompanyStorySection from "@/components/sections/CompanyStorySection";
-import CeoMessageSection from "@/components/sections/CeoMessageSection";
 import MissionVisionSection from "@/components/sections/MissionVisionSection";
 import DifferentiatorsSection from "@/components/sections/DifferentiatorsSection";
 import TeamCapabilitySection from "@/components/sections/TeamCapabilitySection";
@@ -44,7 +43,6 @@ export default function AboutPage() {
         }}
       />
       <CompanyStorySection />
-      <CeoMessageSection />
       <MissionVisionSection />
       <DifferentiatorsSection />
       <TeamCapabilitySection />

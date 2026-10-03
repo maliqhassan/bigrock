@@ -14,6 +14,9 @@ const message = [
   "At Big Rock Builders (Pvt Ltd), we believe every project should reflect Strength, Quality, and Trust. Our goal is to deliver buildings that not only meet expectations, but stand the test of time. We are proud of the work we do and grateful for the confidence our clients place in us.",
 ];
 
+/** The three values named in the message above, pulled out as a standfirst. */
+const tagline = ["Strength", "Quality", "Trust"];
+
 export default function CeoMessageSection() {
   const { ceoName, ceoTitle } = site.leadership;
 
@@ -49,7 +52,25 @@ export default function CeoMessageSection() {
               title="A Message From Our Chief Executive."
             />
 
-            <Reveal className="mt-10" delay={0.1}>
+            {/* The message's three values, as a quiet label under the rule —
+                deliberately smaller than the heading it sits beneath */}
+            <Reveal className="mt-6" delay={0.08}>
+              <p className="font-display text-mist-200 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8125rem] font-semibold tracking-[0.2em] uppercase">
+                {tagline.map((word, index) => (
+                  <span key={word} className="flex items-center gap-x-3">
+                    {index > 0 ? (
+                      <span
+                        aria-hidden="true"
+                        className="bg-gold-500 inline-block h-1 w-1 rounded-full"
+                      />
+                    ) : null}
+                    {word}
+                  </span>
+                ))}
+              </p>
+            </Reveal>
+
+            <Reveal className="mt-8" delay={0.14}>
               {/* Opening quotation mark, set as an architectural detail */}
               <span
                 aria-hidden="true"

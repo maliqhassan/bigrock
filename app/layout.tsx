@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MotionProvider from "@/components/ui/MotionProvider";
 import FloatingActions from "@/components/layout/FloatingActions";
+import SiteLoader from "@/components/layout/SiteLoader";
 import JsonLd from "@/components/seo/JsonLd";
 import { site } from "@/lib/site";
 import {
@@ -96,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Motion renders its hidden initial state on the server, so reveal
             everything if JavaScript never runs. */}
         <noscript>
-          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}#site-loader{display:none!important}`}</style>
         </noscript>
         <a
           href="#main-content"
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <MotionProvider>
+          <SiteLoader />
           <Header />
           <main id="main-content" className="flex-1">
             {children}

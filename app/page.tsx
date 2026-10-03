@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageMetadata, siteDescription } from "@/lib/seo";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
+import CeoMessageSection from "@/components/sections/CeoMessageSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ExpertiseSection from "@/components/sections/ExpertiseSection";
@@ -20,6 +21,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <CeoMessageSection />
       <AboutSection />
       <ServicesSection />
       <ProjectsSection />

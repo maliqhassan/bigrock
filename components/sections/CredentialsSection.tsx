@@ -23,9 +23,18 @@ type Credential = {
   facts: { label: string; value: string }[];
   /** Expiry as printed on the certificate, where it carries one. */
   validUntil?: string;
-  /** `width`/`height` are the scan's own pixel size. The image is never shown
-      larger than that, so it stays as sharp as the supplied document allows. */
-  document: { src: string; alt: string; width: number; height: number };
+  /**
+   * The document itself, where it can be published as supplied.
+   *
+   * Optional: a credential whose certificate carries personal data — a CNIC,
+   * a signature — is listed by its details alone rather than by publishing
+   * the scan. The membership is a company credential; the card is an identity
+   * document and does not belong on a public page.
+   *
+   * `width`/`height` are the scan's own pixel size. The image is never shown
+   * larger than that, so it stays as sharp as the supplied document allows.
+   */
+  document?: { src: string; alt: string; width: number; height: number };
 };
 
 const credentials: Credential[] = [
@@ -82,6 +91,26 @@ const credentials: Credential[] = [
     },
   },
   {
+    issuer: "Islamabad Chamber of Commerce & Industry",
+    title: "Chamber Membership",
+    summary:
+      "Big Rock Builders (Pvt) Ltd is a member firm of the Islamabad Chamber of Commerce & Industry.",
+    facts: [
+      { label: "Membership No.", value: "CM-7534" },
+      { label: "Issued", value: "21 September 2026" },
+    ],
+    validUntil: "31 March 2027",
+    document: {
+      src: "/images/certificates/icci-membership.jpg",
+      // The CNIC and the cardholder's signature are blacked out in the
+      // published file — the membership is a company credential, the identity
+      // details on the card are not.
+      alt: "Islamabad Chamber of Commerce & Industry membership card CM-7534, with the national identity number and signature redacted",
+      width: 806,
+      height: 532,
+    },
+  },
+  {
     issuer: "Federal Board of Revenue",
     title: "DNFBP Registration — AML/CFT",
     summary:
@@ -111,7 +140,7 @@ export default function CredentialsSection() {
           eyebrow="Registrations & Licences"
           headingId="credentials-heading"
           title="Qualified, Licensed and Registered."
-          description="Big Rock Builders holds the registrations required to tender for and deliver public and private sector work in Pakistan. Each certificate is published in full below."
+          description="Big Rock Builders holds the registrations required to tender for and deliver public and private sector work in Pakistan. The company certificates are published in full below."
         />
 
         <RevealList className="mt-16 grid gap-6 lg:grid-cols-2">
@@ -122,23 +151,25 @@ export default function CredentialsSection() {
             >
               {/* The document, shown at its own size — capped to the scan's
                   native width so it never has to be upscaled */}
-              <a
-                href={credential.document.src}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-line group block overflow-hidden rounded-lg border bg-white p-3 sm:p-4"
-              >
-                <Image
-                  src={credential.document.src}
-                  alt={credential.document.alt}
-                  width={credential.document.width}
-                  height={credential.document.height}
-                  sizes="(min-width: 1024px) 45vw, 92vw"
-                  quality={90}
-                  style={{ maxWidth: `${credential.document.width}px` }}
-                  className="mx-auto h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              </a>
+              {credential.document ? (
+                <a
+                  href={credential.document.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-line group block overflow-hidden rounded-lg border bg-white p-3 sm:p-4"
+                >
+                  <Image
+                    src={credential.document.src}
+                    alt={credential.document.alt}
+                    width={credential.document.width}
+                    height={credential.document.height}
+                    sizes="(min-width: 1024px) 45vw, 92vw"
+                    quality={90}
+                    style={{ maxWidth: `${credential.document.width}px` }}
+                    className="mx-auto h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                </a>
+              ) : null}
 
               <div className="min-w-0">
                 <p className="eyebrow">{credential.issuer}</p>
@@ -172,18 +203,20 @@ export default function CredentialsSection() {
                   ) : null}
                 </dl>
 
-                <a
-                  href={credential.document.src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-gold mt-6 inline-flex items-center gap-2 text-sm"
-                >
-                  View Full Certificate
-                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                  <span className="sr-only">
-                    — {credential.title}, opens in a new tab
-                  </span>
-                </a>
+                {credential.document ? (
+                  <a
+                    href={credential.document.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-gold mt-6 inline-flex items-center gap-2 text-sm"
+                  >
+                    View Full Certificate
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                    <span className="sr-only">
+                      — {credential.title}, opens in a new tab
+                    </span>
+                  </a>
+                ) : null}
               </div>
             </RevealItem>
           ))}
